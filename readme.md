@@ -1,6 +1,7 @@
 
 ## Catatan Proyek
-jika baru clone laravel dan ingin melakukan test APi (Auth,Consuming api, Dll). maka lakukan langkah berikut ini ya :
+jika baru clone laravel dan ingin melakukan test APi (Auth,Consuming api, Dll). maka lakukan langkah berikut ini ya 
+
  - [arahkan cmd directory ke project yang sudah di clone.]
  - [lalu jika sudah di directory laravel. ketik command "composer update" (tanpa kutip).]
  - [kalo error di database hubung saya (Nadzar). nanti saya kirim databasenya.]
