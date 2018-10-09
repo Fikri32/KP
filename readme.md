@@ -1,10 +1,10 @@
 
 ## Catatan Proyek
 jika baru clone laravel dan ingin melakukan test APi (Auth,Consuming api, Dll). maka lakukan langkah berikut ini ya :
- - arahkan cmd directory ke project yang sudah di clone.
- - lalu jika sudah di directory laravel. ketik command "composer update" (tanpa kutip).
- - kalo error di database hubung saya (Nadzar). nanti saya kirim databasenya.
- - jika api token hangus ketik di cmd yang sudah di arahkan ke folder project nya tulis command "php artisan passport:install", lalu lihat di bagian data base di bagian client ada user scret dengan acces grant password.
+ - [arahkan cmd directory ke project yang sudah di clone.]
+ - [lalu jika sudah di directory laravel. ketik command "composer update" (tanpa kutip).]
+ - [kalo error di database hubung saya (Nadzar). nanti saya kirim databasenya.]
+ - [jika api token hangus ketik di cmd yang sudah di arahkan ke folder project nya tulis command "php artisan passport:install", lalu lihat di bagian data base di bagian client ada user scret dengan acces grant password.]
 
  jika masih asing dengan sistem/alur oauth 2 (passport) dari laravel silahakan kunjungi[passport documentation.](https://laravel.com/docs/5.7/passport#introduction) 
 
