@@ -7,17 +7,6 @@ use Illuminate\Http\Request;
 class setting extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -25,7 +14,7 @@ class setting extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

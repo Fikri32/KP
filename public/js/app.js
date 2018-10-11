@@ -47364,9 +47364,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_project_manager_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_project_manager_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_project_staff_vue__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_project_staff_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_project_staff_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_project_adActions_vue__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_project_adActions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_project_adActions_vue__);
-
 
 
 
@@ -47379,20 +47376,14 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
         path: "/project",
-        components: __WEBPACK_IMPORTED_MODULE_3__components_project_staff_vue___default.a,
+        component: __WEBPACK_IMPORTED_MODULE_3__components_project_staff_vue___default.a,
         props: true
     }, {
         path: '/project/:id',
         component: __WEBPACK_IMPORTED_MODULE_2__components_project_manager_vue___default.a,
         props: true
-    }, {
-        path: '/setting/:id',
-        component: __WEBPACK_IMPORTED_MODULE_4__components_project_adActions_vue___default.a,
-        props: true
     }]
 });
-
-router.beforeEach(function (to, from, next) {});
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
 
