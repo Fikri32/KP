@@ -23,6 +23,7 @@ Route::middleware(['web'])->group(function(){
     //admin area
     Route::get('/project', 'HomeController@project')->name('project');
     Route::get('/employe','HomeController@employe')->name('user');
+    Route::get('/setting/{id}','HomeController@setting')->name('actions');
 
     //staff area
     Route::get('project/{id}','HomeController@action_page')->name('action');

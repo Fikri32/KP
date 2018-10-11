@@ -19,10 +19,10 @@ import Router from './routes.js'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
 //admin 
-Vue.component('project', require('./components/project.vue'));
+Vue.component('project-admin', require('./components/project.vue'));
 Vue.component('user', require('./components/user.vue'));
+Vue.component('setting-project',require('./components/project_adActions.vue'));
 
 //emp spa
 Vue.component('pspa-app', require('./components/project-spa.vue'));

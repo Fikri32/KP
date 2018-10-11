@@ -6,9 +6,9 @@
   
     <div class="example">
       <div id="app">
-          <project v-bind:token = "'{{Auth::user()->api_token}}'">
-              
-          </project>
+        <project-admin :token = "'{{Auth::user()->api_token}}'">
+
+        </project-admin>
       </div>
     </div>
 @endsection

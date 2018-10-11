@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Project;
+use App\Http\Resources\project as ProjectResource;
 
 class HomeController extends Controller
 {
@@ -39,6 +41,13 @@ class HomeController extends Controller
         } else {
             return view('employe/project');
         } 
+    }
+
+    public function setting($id)
+    {
+        $get_id = $id;
+        //dd($get_id);
+        return view('Admin/setting')->with('get_ids',$get_id);
     }
 
     public function employe()

@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="{{asset('global/vendor/notie/notie.css')}}">
   <link rel="stylesheet" href="{{asset('assets/examples/css/advanced/alertify.css')}}">
   <link rel="stylesheet" href="{{asset('global/vendor/dropify/dropify.css')}}">
-
+  <link rel="stylesheet" href="{{asset('assets/examples/css/apps/contacts.css')}}">
   <!-- Fonts -->
   <link rel="stylesheet" href="{{asset('global/fonts/material-design/material-design.min.css')}}">
   <link rel="stylesheet" href="{{asset('global/fonts/octicons/octicons.min.css')}}">
@@ -62,7 +62,7 @@
   Breakpoints();
   </script>
 </head>
-<body class="animsition site-navbar-small dashboard">
+<body class="animsition site-navbar-small app-contacts page-aside-left">
   <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -416,5 +416,18 @@
   <script src="{{asset('global/js/Plugin/matchheight.js')}}"></script>
   <script src="{{asset('global/js/Plugin/peity.js')}}"></script>
   <script src="{{asset('assets/examples/js/dashboard/v1.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/sticky-header.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/action-btn.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/asselectable.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/editlist.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/aspaginator.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/animate-list.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/jquery-placeholder.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/material.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/selectable.js')}}"></script>
+  <script src="{{asset('global/js/Plugin/bootbox.js')}}"></script>
+  <script src="{{asset('assets/js/BaseApp.js')}}"></script>
+  <script src="{{asset('assets/js/App/Contacts.js')}}"></script>
+  <script src="{{asset('assets/examples/js/apps/contacts.js')}}"></script>
 </body>
 </html>

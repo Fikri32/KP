@@ -21,9 +21,6 @@ class ProjectController extends Controller
         $proj = $proj->where('company_id',Auth::user()->company)->paginate(10);
         return ProjectResource::collection($proj);
     }
-
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -87,7 +84,7 @@ class ProjectController extends Controller
         } else {
             return response()->json([
                 'Error' => true,
-                'Message' =>'Cant find project with id '.$id.'Perhaps this project is helb by antoher company'
+                'Message' =>'Cant find project with id '.$id.'on your account data'
             ],401);
         }
     }

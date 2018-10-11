@@ -150,7 +150,7 @@
                 <!-- end row edit user -->
 
                <div class="form-group form-material">
-                        <button class="btn btn-primary waves-effect waves-light btn-sm" data-toggle="modal" data-target=".createuser"><i class="icon md-plus" aria-hidden="true"></i>Karyawan</button>
+                    <button class="btn btn-primary waves-effect waves-light btn-sm" data-toggle="modal" data-target=".createuser"><i class="icon md-plus" aria-hidden="true"></i>Karyawan</button>
                 </div>
 
                 <table class="table is-indent">

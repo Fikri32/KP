@@ -2,7 +2,7 @@
     <div>  
         <div class="page">
             <div class="page-header page-header-bordered page-header-tabs">
-                <h1 class="page-title">Project Debug :: Filter by {{uname}} :: Searching {{filter}}</h1>
+                <h1 class="page-title">Project Debug :: Filter by {{filterBy}} :: Searching {{filter}}</h1>
                 <div class="page-header-actions">
                     <div class="input-search">
                         <input v-model="filter" type="text" class="form-control round" placeholder="cari Project...">
@@ -14,11 +14,11 @@
 
                 <ul class="nav nav-tabs nav-tabs-line" role="tablist" id="projectlist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link"  aria-controls="exampleList" aria-expanded="true"
+                        <a @click="defaultfilter()" class="nav-link"  aria-controls="exampleList" aria-expanded="true"
                         role="tab">All</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link"  aria-expanded="false" role="tab">Manager Project</a>
+                        <a @click="filterevent(uname)" class="nav-link"  aria-expanded="false" role="tab">Manager Project</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link"  aria-expanded="false" role="tab">Leader Step</a>
@@ -82,6 +82,12 @@ export default {
                 );
             }
 
+            if (this.filterBy) {
+                fil_result = fil_result.filter( item =>
+                    item.userpm.name.includes(this.filterBy)
+                );
+            }
+
             return fil_result;
         }
     },
@@ -108,6 +114,10 @@ export default {
         filterevent(byWhat){
             let filterBy = byWhat;
             this.filterBy = filterBy;
+        },
+
+        defaultfilter(){
+            this.filterBy = ''; 
         }
     },
 }
