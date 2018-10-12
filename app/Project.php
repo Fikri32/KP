@@ -24,4 +24,9 @@ class Project extends Model
         return $this->hasOne('App\User','id','user_id');
     }
 
+    public function step()
+    {
+        return $this->hasMany('App\step','id_project','id');
+    }
+
 }

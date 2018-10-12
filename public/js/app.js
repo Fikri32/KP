@@ -51418,74 +51418,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             project: [],
             api_key: this.token,
-            set_id: this.id
+            set_id: this.id,
+
+            step_post: {
+                id_project: this.id,
+                nama_div: ''
+            }
         };
     },
 
@@ -51513,6 +51457,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 vm.project = 'error euy kamaha nya' + error;
             });
+        },
+        storeStep: function storeStep() {
+            var _this = this;
+
+            fetch('/api/setting/store', {
+                method: 'post',
+                body: JSON.stringify(this.step_post),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.api_key
+                }
+            }).then(function (res) {
+                return res.data;
+            }).then(function (data) {
+
+                _this.id_project = _this.set_id;
+                _this.nama_div = '';
+                _this.fetchproject();
+            }).catch(function (err) {
+                return console.log(err);
+            });
         }
     }
 });
@@ -51526,7 +51491,55 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "page-aside" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "page-aside-inner" }, [
+        _c("div", { attrs: { "data-role": "container" } }, [
+          _c("div", { attrs: { "data-role": "content" } }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "page-aside-section" }, [
+              _c("h5", { staticClass: "page-aside-title" }, [_vm._v("Step")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "list-group has-actions" },
+                [
+                  _vm._l(_vm.project.step, function(step) {
+                    return _c("div", { key: step.id }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "list-group-item",
+                          attrs: { "data-plugin": "editlist" }
+                        },
+                        [
+                          _c("div", { staticClass: "list-content" }, [
+                            _c("span", { staticClass: "item-right" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "list-text" }, [
+                              _vm._v(" " + _vm._s(step.nama_divisi) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(2, true)
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(3, true)
+                        ]
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "page-main" }, [
       _c("div", { staticClass: "page-header" }, [
@@ -51534,10 +51547,117 @@ var render = function() {
           _vm._v("Settting Project " + _vm._s(_vm.project.project_name))
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(5)
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _c(
+        "div",
+        {
+          staticClass: "page-content page-content-table",
+          attrs: { id: "contactsContent", "data-plugin": "selectable" }
+        },
+        [
+          _vm._m(6),
+          _vm._v(" "),
+          _vm._m(7),
+          _vm._v(" "),
+          _vm._m(8),
+          _vm._v(" "),
+          _vm._m(9),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "addLabelForm",
+                "aria-hidden": "true",
+                "aria-labelledby": "addLabelForm",
+                role: "dialog",
+                tabindex: "-1"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: {
+                          type: "button",
+                          "aria-hidden": "true",
+                          "data-dismiss": "modal"
+                        }
+                      },
+                      [_vm._v("×")]
+                    ),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "modal-title" }, [
+                      _vm._v(
+                        "Tambah Step " +
+                          _vm._s(_vm.step_post.nama_div) +
+                          " " +
+                          _vm._s(_vm.step_post.id_project)
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.storeStep($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.step_post.nama_div,
+                                expression: "step_post.nama_div"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "lablename",
+                              placeholder: "Label Name"
+                            },
+                            domProps: { value: _vm.step_post.nama_div },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.step_post,
+                                  "nama_div",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(10)
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -51546,349 +51666,122 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-aside" }, [
-      _c("div", { staticClass: "page-aside-switch" }, [
-        _c("i", {
-          staticClass: "icon md-chevron-left",
-          attrs: { "aria-hidden": "true" }
-        }),
-        _vm._v(" "),
-        _c("i", {
-          staticClass: "icon md-chevron-right",
-          attrs: { "aria-hidden": "true" }
-        })
-      ]),
+    return _c("div", { staticClass: "page-aside-switch" }, [
+      _c("i", {
+        staticClass: "icon md-chevron-left",
+        attrs: { "aria-hidden": "true" }
+      }),
       _vm._v(" "),
-      _c("div", { staticClass: "page-aside-inner page-aside-scroll" }, [
-        _c("div", { attrs: { "data-role": "container" } }, [
-          _c("div", { attrs: { "data-role": "content" } }, [
-            _c("div", { staticClass: "page-aside-section" }, [
-              _c("div", { staticClass: "list-group" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
-                    _c("span", { staticClass: "item-right" }, [_vm._v("61")]),
-                    _c("i", {
-                      staticClass: "icon md-inbox",
-                      attrs: { "aria-hidden": "true" }
-                    }),
-                    _vm._v(
-                      "All\n                    contacts \n                    "
-                    )
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "page-aside-section" }, [
-              _c("h5", { staticClass: "page-aside-title" }, [_vm._v("LABEL")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "list-group has-actions" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: { "data-plugin": "editlist" }
-                  },
-                  [
-                    _c("div", { staticClass: "list-content" }, [
-                      _c("span", { staticClass: "item-right" }, [_vm._v("10")]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "list-text" }, [
-                        _vm._v("Work")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item-actions" }, [
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-editable" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-edit",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-delete" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-delete",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "list-editable" }, [
-                      _c("div", { staticClass: "form-group form-material" }, [
-                        _c("input", {
-                          staticClass: "form-control empty",
-                          attrs: { type: "text", name: "label", value: "Work" }
-                        }),
-                        _vm._v(" "),
-                        _c("button", {
-                          staticClass: "input-editable-close icon md-close",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "list-editable-close",
-                            "aria-label": "Close",
-                            "aria-expanded": "true"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: { "data-plugin": "editlist" }
-                  },
-                  [
-                    _c("div", { staticClass: "list-content" }, [
-                      _c("span", { staticClass: "item-right" }, [_vm._v("5")]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "list-text" }, [
-                        _vm._v("Family")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item-actions" }, [
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-editable" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-edit",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-delete" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-delete",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "list-editable" }, [
-                      _c("div", { staticClass: "form-group form-material" }, [
-                        _c("input", {
-                          staticClass: "form-control empty",
-                          attrs: {
-                            type: "text",
-                            name: "label",
-                            value: "Family"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("button", {
-                          staticClass: "input-editable-close icon md-close",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "list-editable-close",
-                            "aria-label": "Close",
-                            "aria-expanded": "true"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: { "data-plugin": "editlist" }
-                  },
-                  [
-                    _c("div", { staticClass: "list-content" }, [
-                      _c("span", { staticClass: "item-right" }, [_vm._v("16")]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "list-text" }, [
-                        _vm._v("Private")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item-actions" }, [
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-editable" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-edit",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-delete" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-delete",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "list-editable" }, [
-                      _c("div", { staticClass: "form-group form-material" }, [
-                        _c("input", {
-                          staticClass: "form-control empty",
-                          attrs: {
-                            type: "text",
-                            name: "label",
-                            value: "Private"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("button", {
-                          staticClass: "input-editable-close icon md-close",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "list-editable-close",
-                            "aria-label": "Close",
-                            "aria-expanded": "true"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: { "data-plugin": "editlist" }
-                  },
-                  [
-                    _c("div", { staticClass: "list-content" }, [
-                      _c("span", { staticClass: "item-right" }, [_vm._v("30")]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "list-text" }, [
-                        _vm._v("Friends")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item-actions" }, [
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-editable" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-edit",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass: "btn btn-pure btn-icon",
-                            attrs: { "data-toggle": "list-delete" }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "icon md-delete",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "list-editable" }, [
-                      _c("div", { staticClass: "form-group form-material" }, [
-                        _c("input", {
-                          staticClass: "form-control empty",
-                          attrs: {
-                            type: "text",
-                            name: "label",
-                            value: "Friends"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("button", {
-                          staticClass: "input-editable-close icon md-close",
-                          attrs: {
-                            type: "button",
-                            "data-toggle": "list-editable-close",
-                            "aria-label": "Close",
-                            "aria-expanded": "true"
-                          }
-                        })
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "list-group-item",
-                    attrs: {
-                      id: "addLabelToggle",
-                      href: "javascript:void(0)",
-                      "data-toggle": "modal",
-                      "data-target": "#addLabelForm"
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "icon md-plus",
-                      attrs: { "aria-hidden": "true" }
-                    }),
-                    _vm._v(" Add New Label\n                    ")
-                  ]
-                )
-              ])
-            ])
-          ])
-        ])
+      _c("i", {
+        staticClass: "icon md-chevron-right",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "page-aside-section" }, [
+      _c("div", { staticClass: "list-group" }, [
+        _c(
+          "a",
+          {
+            staticClass: "list-group-item",
+            attrs: { href: "javascript:void(0)" }
+          },
+          [
+            _c("span", { staticClass: "item-right" }, [_vm._v("61")]),
+            _c("i", {
+              staticClass: "icon md-inbox",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v("All\n                    Task \n                    ")
+          ]
+        )
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "item-actions" }, [
+      _c(
+        "span",
+        {
+          staticClass: "btn btn-pure btn-icon",
+          attrs: { "data-toggle": "list-editable" }
+        },
+        [
+          _c("i", {
+            staticClass: "icon md-edit",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          staticClass: "btn btn-pure btn-icon",
+          attrs: { "data-toggle": "list-delete" }
+        },
+        [
+          _c("i", {
+            staticClass: "icon md-delete",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "list-editable" }, [
+      _c("div", { staticClass: "form-group form-material" }, [
+        _c("input", {
+          staticClass: "form-control empty",
+          attrs: { type: "text", name: "label", value: "Work" }
+        }),
+        _vm._v(" "),
+        _c("button", {
+          staticClass: "input-editable-close icon md-close",
+          attrs: {
+            type: "button",
+            "data-toggle": "list-editable-close",
+            "aria-label": "Close",
+            "aria-expanded": "true"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "list-group-item",
+        attrs: {
+          id: "addLabelToggle",
+          href: "javascript:void(0)",
+          "data-toggle": "modal",
+          "data-target": "#addLabelForm"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "icon md-plus",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" Step baru\n                    ")
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -51914,582 +51807,405 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "page-content page-content-table",
-        attrs: { id: "contactsContent", "data-plugin": "selectable" }
-      },
-      [
-        _c("div", { staticClass: "page-content-actions" }, [
-          _c("div", { staticClass: "pull-xs-right" }, [
-            _c("div", { staticClass: "dropdown" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-pure",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "dropdown",
-                    "aria-expanded": "false"
-                  }
-                },
-                [
-                  _vm._v("\n                    More\n                    "),
-                  _c("span", {
-                    staticClass: "icon md-chevron-down",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "dropdown-menu", attrs: { role: "menu" } },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("More")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("More")]
-                  )
-                ]
-              )
-            ]),
+    return _c("div", { staticClass: "page-content-actions" }, [
+      _c("div", { staticClass: "btn-group btn-group-flat" }, [
+        _c("div", { staticClass: "dropdown" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-icon btn-pure btn-default",
+              attrs: {
+                "data-toggle": "dropdown",
+                "aria-expanded": "false",
+                type: "button"
+              }
+            },
+            [
+              _c("i", {
+                staticClass: "icon md-folder",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-menu", attrs: { role: "menu" } }, [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("work")]
+            ),
             _vm._v(" "),
             _c(
-              "button",
+              "a",
               {
-                staticClass: "btn btn-info btn-md empty-btn",
-                attrs: { type: "button" }
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
               },
-              [_vm._v("Empty All")]
+              [_vm._v("Family")]
             )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "btn-group btn-group-flat" }, [
-            _c("div", { staticClass: "dropdown" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-icon btn-pure btn-default",
-                  attrs: {
-                    "data-toggle": "dropdown",
-                    "aria-expanded": "false",
-                    type: "button"
-                  }
-                },
-                [
-                  _c("i", {
-                    staticClass: "icon md-folder",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "dropdown-menu", attrs: { role: "menu" } },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("work")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Family")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Private")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Friends")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "dropdown-divider" }),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Trash")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Spam")]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-icon btn-pure btn-default",
-                  attrs: {
-                    "data-toggle": "dropdown",
-                    "aria-expanded": "false",
-                    type: "button"
-                  }
-                },
-                [
-                  _c("i", {
-                    staticClass: "icon md-tag",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "dropdown-menu", attrs: { role: "menu" } },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("work")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Family")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Private")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "javascript:void(0)" }
-                    },
-                    [_vm._v("Friends")]
-                  )
-                ]
-              )
-            ])
           ])
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "dropdown" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-icon btn-pure btn-default",
+              attrs: {
+                "data-toggle": "dropdown",
+                "aria-expanded": "false",
+                type: "button"
+              }
+            },
+            [
+              _c("i", {
+                staticClass: "icon md-tag",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-menu", attrs: { role: "menu" } }, [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("work")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("Family")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("Private")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("Friends")]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "table",
+      {
+        staticClass: "table is-indent",
+        attrs: {
+          "data-plugin": "animateList",
+          "data-animate": "fade",
+          "data-child": "tr",
+          "data-selectable": "selectable"
+        }
+      },
+      [
+        _c("thead", [
+          _c("tr", [
+            _c("th", { staticClass: "pre-cell" }),
+            _vm._v(" "),
+            _c("th", { staticClass: "cell-30", attrs: { scope: "col" } }, [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "checkbox-custom checkbox-primary checkbox-lg contacts-select-all"
+                },
+                [
+                  _c("input", {
+                    staticClass: "contacts-checkbox selectable-all",
+                    attrs: { type: "checkbox", id: "select_all" }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "select_all" } })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
+              _vm._v("Name")
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
+              _vm._v("Phone")
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
+            _vm._v(" "),
+            _c("th", { staticClass: "suf-cell" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tbody", [
+          _c(
+            "tr",
+            { attrs: { "data-url": "panel.tpl", "data-toggle": "slidePanel" } },
+            [
+              _c("td", { staticClass: "pre-cell" }),
+              _vm._v(" "),
+              _c("td", { staticClass: "cell-30" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "checkbox-custom checkbox-primary checkbox-lg"
+                  },
+                  [
+                    _c("input", {
+                      staticClass: "contacts-checkbox selectable-item",
+                      attrs: { type: "checkbox", id: "contacts_1" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "contacts_1" } })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "cell-300" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "avatar",
+                    attrs: { href: "javascript:void(0)" }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "img-fluid",
+                      attrs: { src: "", alt: "..." }
+                    })
+                  ]
+                ),
+                _vm._v(
+                  "\n                        Herman Beck\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "cell-300" }, [_vm._v("(119)-298-8025")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("julio.williamson73@gmail.com")]),
+              _vm._v(" "),
+              _c("td", { staticClass: "suf-cell" })
+            ]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "site-action", attrs: { "data-plugin": "actionBtn" } },
+      [
         _c(
-          "table",
+          "button",
           {
-            staticClass: "table is-indent",
-            attrs: {
-              "data-plugin": "animateList",
-              "data-animate": "fade",
-              "data-child": "tr",
-              "data-selectable": "selectable"
-            }
+            staticClass:
+              "site-action-toggle btn-raised btn btn-success btn-floating",
+            attrs: { type: "button" }
           },
           [
-            _c("thead", [
-              _c("tr", [
-                _c("th", { staticClass: "pre-cell" }),
-                _vm._v(" "),
-                _c("th", { staticClass: "cell-30", attrs: { scope: "col" } }, [
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "checkbox-custom checkbox-primary checkbox-lg contacts-select-all"
-                    },
-                    [
-                      _c("input", {
-                        staticClass: "contacts-checkbox selectable-all",
-                        attrs: { type: "checkbox", id: "select_all" }
-                      }),
-                      _vm._v(" "),
-                      _c("label", { attrs: { for: "select_all" } })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
-                  _vm._v("Name")
-                ]),
-                _vm._v(" "),
-                _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
-                  _vm._v("Phone")
-                ]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "suf-cell" })
+            _c("i", {
+              staticClass: "front-icon md-plus animation-scale-up",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("i", {
+              staticClass: "back-icon md-close animation-scale-up",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "site-action-buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn-raised btn btn-success btn-floating animation-slide-bottom",
+              attrs: { type: "button", "data-action": "trash" }
+            },
+            [
+              _c("i", {
+                staticClass: "icon md-delete",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn-raised btn btn-success btn-floating animation-slide-bottom",
+              attrs: { type: "button", "data-action": "folder" }
+            },
+            [
+              _c("i", {
+                staticClass: "icon md-folder",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addUserForm",
+          "aria-hidden": "true",
+          "aria-labelledby": "addUserForm",
+          role: "dialog",
+          tabindex: "-1"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "aria-hidden": "true",
+                    "data-dismiss": "modal"
+                  }
+                },
+                [_vm._v("×")]
+              ),
+              _vm._v(" "),
+              _c("h4", { staticClass: "modal-title" }, [
+                _vm._v("Create New Contact")
               ])
             ]),
             _vm._v(" "),
-            _c("tbody", [
-              _c(
-                "tr",
-                {
-                  attrs: {
-                    "data-url": "panel.tpl",
-                    "data-toggle": "slidePanel"
-                  }
-                },
-                [
-                  _c("td", { staticClass: "pre-cell" }),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "cell-30" }, [
-                    _c(
-                      "span",
-                      {
-                        staticClass:
-                          "checkbox-custom checkbox-primary checkbox-lg"
-                      },
-                      [
-                        _c("input", {
-                          staticClass: "contacts-checkbox selectable-item",
-                          attrs: { type: "checkbox", id: "contacts_1" }
-                        }),
-                        _vm._v(" "),
-                        _c("label", { attrs: { for: "contacts_1" } })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "cell-300" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "avatar",
-                        attrs: { href: "javascript:void(0)" }
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: { src: "", alt: "..." }
-                        })
-                      ]
-                    ),
-                    _vm._v(
-                      "\n                        Herman Beck\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "cell-300" }, [
-                    _vm._v("(119)-298-8025")
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("julio.williamson73@gmail.com")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "suf-cell" })
-                ]
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "site-action", attrs: { "data-plugin": "actionBtn" } },
-          [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "site-action-toggle btn-raised btn btn-success btn-floating",
-                attrs: { type: "button" }
-              },
-              [
-                _c("i", {
-                  staticClass: "front-icon md-plus animation-scale-up",
-                  attrs: { "aria-hidden": "true" }
-                }),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("form", [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "name", placeholder: "Name" }
+                  })
+                ]),
                 _vm._v(" "),
-                _c("i", {
-                  staticClass: "back-icon md-close animation-scale-up",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]
-            ),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "phone", placeholder: "Phone" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "email", placeholder: "Email" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "address",
+                      placeholder: "Address"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "birthday",
+                      placeholder: "Birthday"
+                    }
+                  })
+                ])
+              ])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "site-action-buttons" }, [
+            _c("div", { staticClass: "modal-footer" }, [
               _c(
                 "button",
                 {
-                  staticClass:
-                    "btn-raised btn btn-success btn-floating animation-slide-bottom",
-                  attrs: { type: "button", "data-action": "trash" }
+                  staticClass: "btn btn-primary",
+                  attrs: { "data-dismiss": "modal", type: "submit" }
                 },
-                [
-                  _c("i", {
-                    staticClass: "icon md-delete",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
+                [_vm._v("Save")]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "a",
                 {
-                  staticClass:
-                    "btn-raised btn btn-success btn-floating animation-slide-bottom",
-                  attrs: { type: "button", "data-action": "folder" }
+                  staticClass: "btn btn-sm btn-white btn-pure",
+                  attrs: { "data-dismiss": "modal", href: "javascript:void(0)" }
                 },
-                [
-                  _c("i", {
-                    staticClass: "icon md-folder",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
+                [_vm._v("Cancel")]
               )
             ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "modal fade",
-            attrs: {
-              id: "addUserForm",
-              "aria-hidden": "true",
-              "aria-labelledby": "addUserForm",
-              role: "dialog",
-              tabindex: "-1"
-            }
-          },
-          [
-            _c("div", { staticClass: "modal-dialog" }, [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "aria-hidden": "true",
-                        "data-dismiss": "modal"
-                      }
-                    },
-                    [_vm._v("×")]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "modal-title" }, [
-                    _vm._v("Create New Contact")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("form", [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "name",
-                          placeholder: "Name"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "phone",
-                          placeholder: "Phone"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "email",
-                          placeholder: "Email"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "address",
-                          placeholder: "Address"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "birthday",
-                          placeholder: "Birthday"
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { "data-dismiss": "modal", type: "submit" }
-                    },
-                    [_vm._v("Save")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-sm btn-white btn-pure",
-                      attrs: {
-                        "data-dismiss": "modal",
-                        href: "javascript:void(0)"
-                      }
-                    },
-                    [_vm._v("Cancel")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "modal fade",
-            attrs: {
-              id: "addLabelForm",
-              "aria-hidden": "true",
-              "aria-labelledby": "addLabelForm",
-              role: "dialog",
-              tabindex: "-1"
-            }
-          },
-          [
-            _c("div", { staticClass: "modal-dialog" }, [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "aria-hidden": "true",
-                        "data-dismiss": "modal"
-                      }
-                    },
-                    [_vm._v("×")]
-                  ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "modal-title" }, [
-                    _vm._v("Tambah Step")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("form", [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "lablename",
-                          placeholder: "Label Name"
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { "data-dismiss": "modal", type: "submit" }
-                    },
-                    [_vm._v("Save")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-sm btn-white btn-pure",
-                      attrs: {
-                        "data-dismiss": "modal",
-                        href: "javascript:void(0)"
-                      }
-                    },
-                    [_vm._v("Cancel")]
-                  )
-                ])
-              ])
-            ])
-          ]
-        )
+          ])
+        ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-white btn-pure",
+          attrs: { "data-dismiss": "modal", href: "javascript:void(0)" }
+        },
+        [_vm._v("Cancel")]
+      )
+    ])
   }
 ]
 render._withStripped = true

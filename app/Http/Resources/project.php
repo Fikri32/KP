@@ -24,6 +24,7 @@ class project extends JsonResource
             'project_Date'     => $this->tanggal_mulai,
             'project_added'    => $this->created_at->diffForHumans(),
             'userpm' => $this->User,
+            'step' => $this->step
         ];
     }
 }

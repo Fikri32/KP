@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\step;
+use Auth;
+use App\Http\Resources\setting as stepResource;
 
 class setting extends Controller
 {
@@ -12,8 +15,21 @@ class setting extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(step $step ,Request $request)
     {
+        if (Auth::user()->role == 'admin') {
+            
+        $step = $step -> create([
+            'id_project'    => $request->id_project,
+            'nama_divisi'   => $request->nama_div
+            
+        ]);   
+
+        } else {
+            return response()->json([
+                'message' => 'Restricted for employe, admin only'
+            ],500);
+        }
         
     }
 
