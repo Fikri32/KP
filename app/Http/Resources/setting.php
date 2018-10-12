@@ -14,6 +14,9 @@ class setting extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'nama_step' => $this->nama_divisi,
+            'task_list' => $this->task
+        ];
     }
 }

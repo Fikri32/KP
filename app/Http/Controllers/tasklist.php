@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\task;
+use App\Http\Resources\tasklist as taskResource;
 
 class tasklist extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -22,9 +16,19 @@ class tasklist extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(task $task,Request $request)
     {
-        //
+        if (Auth::user()->role == 'admin') {
+            $task = $task->create([
+                'id_divisi' => $request->id_step,
+                'task'      => $request->nama_task
+            ]);
+        } else {
+             return response()->json([
+                'message' => 'Restricted for employe, admin only'
+            ],500);
+        }
+        
     }
 
     /**

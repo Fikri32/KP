@@ -60,7 +60,7 @@
         <div class="page-main">
             <!-- Contacts Content Header -->
             <div class="page-header">
-                <h1 class="page-title">Settting Project {{project.project_name}}</h1>
+                <h1 class="page-title">Settting {{project.project_name}}</h1>
                 <div class="page-header-actions">
                 <form>
                     <div class="input-search input-search-dark">
@@ -100,30 +100,14 @@
                 data-selectable="selectable">
                     <thead>
                         <tr>
-                        <th class="pre-cell"></th>
-                        <th class="cell-30" scope="col">
-                            <span class="checkbox-custom checkbox-primary checkbox-lg contacts-select-all">
-                            <input type="checkbox" class="contacts-checkbox selectable-all" id="select_all"
-                            />
-                            <label for="select_all"></label>
-                            </span>
-                        </th>
-                        <th class="cell-300" scope="col">Name</th>
-                        <th class="cell-300" scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th class="suf-cell"></th>
+                            <th class="cell-300" scope="col">Task</th>
+                            <th class="cell-300" scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th class="suf-cell"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr data-url="panel.tpl" data-toggle="slidePanel">
-                        <td class="pre-cell"></td>
-                        <td class="cell-30">
-                            <span class="checkbox-custom checkbox-primary checkbox-lg">
-                            <input type="checkbox" class="contacts-checkbox selectable-item" id="contacts_1"
-                            />
-                            <label for="contacts_1"></label>
-                            </span>
-                        </td>
                         <td class="cell-300">
                             <a class="avatar" href="javascript:void(0)">
                             <img class="img-fluid" src="" alt="...">
@@ -138,18 +122,10 @@
                 </table>
                 <!-- Site Action -->
                 <div class="site-action" data-plugin="actionBtn">
-                    <button type="button" class="site-action-toggle btn-raised btn btn-success btn-floating">
+                    <button type="button" data-toggle="modal" data-target="#addUserForm" class="site-action-toggle btn-raised btn btn-success btn-floating">
                         <i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
                         <i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
                     </button>
-                    <div class="site-action-buttons">
-                        <button type="button" data-action="trash" class="btn-raised btn btn-success btn-floating animation-slide-bottom">
-                            <i class="icon md-delete" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" data-action="folder" class="btn-raised btn btn-success btn-floating animation-slide-bottom">
-                            <i class="icon md-folder" aria-hidden="true"></i>
-                        </button>
-                    </div>
                 </div>
                 <!-- End Site Action -->
                 <!-- Add User Form -->
@@ -159,31 +135,28 @@
                     <div class="modal-content">
                         <div class="modal-header">
                         <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-                        <h4 class="modal-title">Create New Contact</h4>
+                        <h4 class="modal-title">Buat Task {{task_post.nama_task}} {{task_post.id_step}}</h4>
                         </div>
                         <div class="modal-body">
-                        <form>
+                        <form @submit.prevent="storeTask">
+
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name" placeholder="Name" />
+                                <input v-model="task_post.nama_task" type="text" class="form-control" placeholder="Task" />
                             </div>
+
                             <div class="form-group">
-                                <input type="text" class="form-control" name="phone" placeholder="Phone" />
+                                <select v-model="task_post.id_step" class="form-control">
+                                    <option v-for="step in project.step" :key="step.id" :value="step.id">{{step.nama_divisi}}</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="email" placeholder="Email" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="address" placeholder="Address"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="birthday" placeholder="Birthday"/>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                             </div>
                         </form>
                         </div>
-                        <div class="modal-footer">
-                        <button class="btn btn-primary" data-dismiss="modal" type="submit">Save</button>
-                        <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-                        </div>
+                       
                     </div>
                     </div>
                 </div>
@@ -232,6 +205,11 @@ export default {
                 id_project:this.id,
                 nama_div:''
             },
+
+            task_post :{
+                id_step:'',
+                nama_task:''
+            }
         }
     },
     computed:{
@@ -284,6 +262,25 @@ export default {
                 }
             )
             .catch(err => console.log(err));
+        },
+
+        storeTask(){
+            fetch('/api/task/store',{
+                method:'post',
+                body:JSON.stringify(this.task_post),
+                headers:{
+                    'Content-Type':'application/json',
+                    'Authorization' : 'Bearer ' + this.api_key
+                }
+            })
+            .then(res => res.data)
+            .then(
+                data => {
+                    this.id_step = '',
+                    this.nama_task = ''
+                    this.fetchproject();
+                }
+            )
         }
 
     }

@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('project/delete/{id}','ProjectController@destroy')->name('project-delete');
     //---- setting setting//
     Route::post('setting/store','setting@store')->name('set_divisi_setting');
+    Route::post('task/store','tasklist@store')->name('set_task_per_setting');
 });
 
 Route::middleware('auth:oauth')->group(function(){
