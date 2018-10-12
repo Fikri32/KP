@@ -14,6 +14,6 @@ class task extends Model
 
     public function step()
     {
-        return $this->belongsTo('App\step','id_divisi','id');
+        return $this->belongsTo('App\step','id','id_divisi');
     }
 }

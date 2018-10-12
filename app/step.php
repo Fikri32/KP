@@ -19,6 +19,6 @@ class step extends Model
 
     public function task()
     {
-        return $this->hasMany('App\task','id','id_divisi');
+        return $this->hasMany('App\task','id_divisi','id');
     }
 }

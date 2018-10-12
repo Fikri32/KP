@@ -74,6 +74,20 @@
             <div id="contactsContent" class="page-content page-content-table" data-plugin="selectable">
                 <!-- Actions -->
                 <div class="page-content-actions">
+                
+                <div class="pull-xs-right">
+                    <div class="dropdown">
+                    <button type="button" class="btn btn-pure waves-effect" data-toggle="dropdown" aria-expanded="false">
+                        Team Management
+                        <span class="icon md-chevron-down" aria-hidden="true"></span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="javascript:void(0)">Tambah Team</a>
+                        <a class="dropdown-item" href="javascript:void(0)">Anggota</a>
+                    </div>
+                    </div>
+                </div>
+          
                 <div class="btn-group btn-group-flat">
                     <div class="dropdown">
                     <button class="btn btn-icon btn-pure btn-default" data-toggle="dropdown" aria-expanded="false"

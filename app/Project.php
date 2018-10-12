@@ -29,4 +29,8 @@ class Project extends Model
         return $this->hasMany('App\step','id_project','id');
     }
 
+    public function task()
+    {
+        return $this->hasManyTrough('App\step','App\task','id_project','id_divisi');
+    }
 }

@@ -50177,42 +50177,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50302,7 +50266,53 @@ var render = function() {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _vm._m(2)
+            _c("div", { staticClass: "card-block" }, [
+              _c("div", { staticClass: "example-wrap" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "nav-tabs-horizontal",
+                    attrs: { "data-plugin": "tabs" }
+                  },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "nav nav-tabs nav-tabs-solid",
+                        attrs: { role: "tablist" }
+                      },
+                      _vm._l(_vm.singleProject.step, function(step) {
+                        return _c(
+                          "li",
+                          {
+                            key: step.id,
+                            staticClass: "nav-item",
+                            attrs: { role: "presentation" }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "nav-link active",
+                                attrs: {
+                                  "data-toggle": "tab",
+                                  href: "#stepone",
+                                  "aria-controls": "stepone",
+                                  role: "tab"
+                                }
+                              },
+                              [_vm._v(_vm._s(step.nama_divisi))]
+                            )
+                          ]
+                        )
+                      })
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]
+                )
+              ])
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -50389,193 +50399,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-block" }, [
-      _c("h4", { staticClass: "card-title project-option-title" }, [
-        _vm._v(
-          "\n                            Step \n                            "
-        ),
-        _c("button", {
-          staticClass: "btn btn-pure btn-default icon md-plus btn-plus",
-          attrs: {
-            type: "button",
-            "data-target": "#tambahTask",
-            "data-toggle": "modal"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "example-wrap" }, [
-        _c(
-          "div",
-          {
-            staticClass: "nav-tabs-horizontal",
-            attrs: { "data-plugin": "tabs" }
-          },
-          [
-            _c(
-              "ul",
-              {
-                staticClass: "nav nav-tabs nav-tabs-solid",
-                attrs: { role: "tablist" }
-              },
-              [
-                _c(
-                  "li",
-                  { staticClass: "nav-item", attrs: { role: "presentation" } },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link active",
-                        attrs: {
-                          "data-toggle": "tab",
-                          href: "#stepone",
-                          "aria-controls": "stepone",
-                          role: "tab"
-                        }
-                      },
-                      [_vm._v("Marketing")]
-                    )
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "tab-content" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "tab-pane active",
-                  attrs: { id: "stepone", role: "tabpanel" }
-                },
-                [
-                  _c("div", { staticClass: "card card-inverse card-primary" }, [
-                    _c("div", { staticClass: "card-block" }, [
-                      _c("h4", { staticClass: "card-title" }, [
-                        _vm._v("Leader :")
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", { staticClass: "card-title" }, [
-                        _vm._v("Team   :")
-                      ]),
-                      _vm._v(" "),
-                      _c("h5", { staticClass: "card-title" }, [
-                        _vm._v("End Date         :")
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "modal fade modal-fade-in-scale-up",
-                attrs: {
-                  id: "tambahTask",
-                  "aria-hidden": "true",
-                  "aria-labelledby": "exampleModalTitle",
-                  role: "dialog",
-                  tabindex: "-1"
-                }
-              },
-              [
-                _c("div", { staticClass: "modal-dialog" }, [
-                  _c("div", { staticClass: "modal-content" }, [
-                    _c("div", { staticClass: "modal-header" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "close",
-                          attrs: {
-                            type: "button",
-                            "data-dismiss": "modal",
-                            "aria-label": "Close"
-                          }
-                        },
-                        [
-                          _c("span", { attrs: { "aria-hidden": "true" } }, [
-                            _vm._v("×")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("h4", { staticClass: "modal-title" }, [
-                        _vm._v(" Add New Step")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-body" }, [
-                      _c("p"),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "form-group form-material floating",
-                          attrs: { "data-plugin": "formMaterial" }
-                        },
-                        [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: { type: "text", name: "inputDivisi" }
-                          }),
-                          _vm._v(" "),
-                          _c("label", { staticClass: "floating-label" }, [
-                            _vm._v("Step")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "form-group form-material floating",
-                          attrs: { "data-plugin": "formMaterial" }
-                        },
-                        [
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              id: "inputDate1",
-                              "data-plugin": "formatter",
-                              "data-pattern": "[[9999]]-[[99]]-[[99]]"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "text-help" }, [
-                            _vm._v("2017-01-01")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "modal-footer" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-pure",
-                          attrs: { type: "button", "data-dismiss": "modal" }
-                        },
-                        [_vm._v("Close")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "button" }
-                        },
-                        [_vm._v("Save changes")]
-                      )
-                    ])
-                  ])
-                ])
-              ]
-            )
-          ]
-        )
-      ])
+    return _c("div", { staticClass: "tab-content" }, [
+      _c(
+        "div",
+        {
+          staticClass: "tab-pane active",
+          attrs: { id: "stepone", role: "tabpanel" }
+        },
+        [
+          _c("div", { staticClass: "card card-inverse card-primary" }, [
+            _c("div", { staticClass: "card-block" }, [
+              _c("h4", { staticClass: "card-title" }, [
+                _vm._v("Leader           :")
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v("Team             :")
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v("End Date         :")
+              ])
+            ])
+          ])
+        ]
+      )
     ])
   },
   function() {
@@ -54812,6 +54660,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -55354,6 +55216,51 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "page-content-actions" }, [
+      _c("div", { staticClass: "pull-xs-right" }, [
+        _c("div", { staticClass: "dropdown" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-pure waves-effect",
+              attrs: {
+                type: "button",
+                "data-toggle": "dropdown",
+                "aria-expanded": "false"
+              }
+            },
+            [
+              _vm._v(
+                "\n                    Team Management\n                    "
+              ),
+              _c("span", {
+                staticClass: "icon md-chevron-down",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-menu", attrs: { role: "menu" } }, [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("Tambah Team")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "javascript:void(0)" }
+              },
+              [_vm._v("Anggota")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "btn-group btn-group-flat" }, [
         _c("div", { staticClass: "dropdown" }, [
           _c(

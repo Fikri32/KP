@@ -25,62 +25,26 @@
                         </div>
 
                         <div class="card-block">
-                            <h4 class="card-title project-option-title">
-                                Step 
-                                <button type="button" class="btn btn-pure btn-default icon md-plus btn-plus" data-target="#tambahTask" data-toggle="modal"></button>
-                            </h4>
-
                             <div class="example-wrap">
-                                <div class="nav-tabs-horizontal" data-plugin="tabs">
+                                <div  class="nav-tabs-horizontal" data-plugin="tabs">
 
-                                    <ul class="nav nav-tabs nav-tabs-solid" role="tablist">
-                                        <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#stepone"
-                                            aria-controls="stepone" role="tab">Marketing</a></li>
+                                    <ul  class="nav nav-tabs nav-tabs-solid" role="tablist">
+                                        <li v-for="step in singleProject.step" :key="step.id" class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#stepone"
+                                            aria-controls="stepone" role="tab">{{step.nama_divisi}}</a></li>
                                     </ul>
 
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="stepone" role="tabpanel">
                                             <div class="card card-inverse card-primary">
                                                 <div class="card-block">
-                                                    <h4 class="card-title">Leader :</h4>
-                                                    <h5 class="card-title">Team   :</h5>
+                                                    <h4 class="card-title">Leader           :</h4>
+                                                    <h5 class="card-title">Team             :</h5>
                                                     <h5 class="card-title">End Date         :</h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- MODAL ADD TASK -->      
-                                    <div class="modal fade modal-fade-in-scale-up" id="tambahTask" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                    <h4 class="modal-title"> Add New Step</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>
-                                                    <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                        <input type="text" class="form-control" name="inputDivisi">
-                                                        <label class="floating-label">Step</label>
-                                                    </div>
-                                                    <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                        <input type="text" class="form-control" id="inputDate1" data-plugin="formatter"
-                                                        data-pattern="[[9999]]-[[99]]-[[99]]" />
-                                                        <p class="text-help">2017-01-01</p>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END ADD TASK  -->
+                                    
                                 </div>
                             </div>
                         </div>
