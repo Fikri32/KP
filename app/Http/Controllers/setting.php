@@ -21,7 +21,8 @@ class setting extends Controller
             
         $step = $step -> create([
             'id_project'    => $request->id_project,
-            'nama_divisi'   => $request->nama_div
+            'nama_divisi'   => $request->nama_div,
+            'leader'        => $request->leader,
             
         ]);   
 

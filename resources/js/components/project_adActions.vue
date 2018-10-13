@@ -27,7 +27,7 @@
                             <div class="list-group-item" data-plugin="editlist">
                                 <div class="list-content">
                                     <span class="item-right"></span>
-                                    <span class="list-text"> {{ step.nama_divisi }} </span>
+                                    <span class="list-text"> {{ step.nama_step }} </span>
                                     <div class="item-actions">
                                     <span class="btn btn-pure btn-icon" data-toggle="list-editable"><i class="icon md-edit" aria-hidden="true"></i></span>
                                     <span class="btn btn-pure btn-icon" data-toggle="list-delete"><i class="icon md-delete" aria-hidden="true"></i></span>
@@ -74,18 +74,9 @@
             <div id="contactsContent" class="page-content page-content-table" data-plugin="selectable">
                 <!-- Actions -->
                 <div class="page-content-actions">
-                
+                    
                 <div class="pull-xs-right">
-                    <div class="dropdown">
-                    <button type="button" class="btn btn-pure waves-effect" data-toggle="dropdown" aria-expanded="false">
-                        Team Management
-                        <span class="icon md-chevron-down" aria-hidden="true"></span>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="javascript:void(0)">Tambah Team</a>
-                        <a class="dropdown-item" href="javascript:void(0)">Anggota</a>
-                    </div>
-                    </div>
+                    
                 </div>
           
                 <div class="btn-group btn-group-flat">
@@ -115,23 +106,17 @@
                     <thead>
                         <tr>
                             <th class="cell-300" scope="col">Task</th>
-                            <th class="cell-300" scope="col">Phone</th>
-                            <th scope="col">Email</th>
-                            <th class="suf-cell"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-url="panel.tpl" data-toggle="slidePanel">
-                        <td class="cell-300">
-                            <a class="avatar" href="javascript:void(0)">
-                            <img class="img-fluid" src="" alt="...">
-                            </a>
-                            Herman Beck
-                        </td>
-                        <td class="cell-300">(119)-298-8025</td>
-                        <td>julio.williamson73@gmail.com</td>
-                        <td class="suf-cell"></td>
-                        </tr>
+                        <div v-for="item in project.step" :key="item.id">
+                            <tr v-for="item2 in item.task_list" :key="item2.id" data-url="panel.tpl" data-toggle="slidePanel">
+                                <td class="cell-300">
+                                    {{item2.task}}
+                                </td>
+                               
+                            </tr>
+                        </div>
                     </tbody>
                 </table>
                 <!-- Site Action -->
@@ -159,8 +144,8 @@
                             </div>
 
                             <div class="form-group">
-                                <select v-model="task_post.id_step" class="form-control">
-                                    <option v-for="step in project.step" :key="step.id" :value="step.id">{{step.nama_divisi}}</option>
+                                <select v-model="task_post.id_step" aria-placeholder="Step" class="form-control">
+                                    <option v-for="step in project.step" :key="step.id" :value="step.id">{{step.nama_step}}</option>
                                 </select>
                             </div>
 
@@ -182,12 +167,19 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-                                <h4 class="modal-title">Tambah Step {{step_post.nama_div}} {{step_post.id_project}}</h4>
+                                <h4 class="modal-title">Tambah Step </h4>
                             </div>
                             <div class="modal-body">
                                 <form @submit.prevent="storeStep">
                                     <div class="form-group">
-                                        <input type="text" v-model="step_post.nama_div" class="form-control" name="lablename" placeholder="Label Name"/>
+                                        {{step_post.nama_div}} {{step_post.id_project}}
+                                        <input type="text" v-model="step_post.nama_div" class="form-control" name="lablename" placeholder="Nama Task"/>
+                                    </div>
+                                        {{step_post.leader}}
+                                    <div class="form-group">
+                                        <select v-model="step_post.leader" class="form-control">
+                                            <option v-for="userlist in userlist" :key="userlist.user_id" :value="userlist.user_id">{{userlist.user_name}}-{{userlist.jobs.jabatan}}</option>
+                                        </select>
                                     </div>
 
                                     <div class="modal-footer">
@@ -212,12 +204,14 @@ export default {
     data(){
         return{
             project:[],
+            userlist:[],
             api_key:this.token,
             set_id : this.id,
 
             step_post :{
                 id_project:this.id,
-                nama_div:''
+                nama_div:'',
+                leader:''
             },
 
             task_post :{
@@ -234,27 +228,49 @@ export default {
 
     created(){
         this.fetchproject();
+        this.fetchuser();
     },
 
     methods:{
 
         fetchproject(){
-            this.project = 'loading..'
-            var vm = this
-            let axios_headers = {
+
+            this.project = 'Loading...'
+
+            let head = {
                 'Accept' :'application/json',
                 'X-Requested-With' : 'XMLHttpRequest',
                 'Authorization' : 'Bearer ' + this.api_key
             }
 
-            axios.get('/api/project/' + this.set_id,{headers:axios_headers})
-            .then(function (response) {
+            var vm = this;
+
+            axios.get('/api/project/' + this.set_id,{headers:head})
+            .then(function(response){
                 vm.project = response.data;
             })
-            .catch(function (error) {
-                vm.project = 'error euy kamaha nya' + error;
+            .catch(function(error){
+                vm.project = 'error :' + error 
             })
 
+        },
+
+        fetchuser(){
+            fetch('/api/user',{
+                method:'get',
+                headers:{
+                    'Accept' :'application/json',
+                    'X-Requested-With' : 'XMLHttpRequest',
+                    'Authorization' : 'Bearer ' + this.api_key
+                }
+            })
+            .then(res => res.json())
+            .then(
+                res => {
+                    this.userlist = res.data
+                }
+            )
+            .catch(err => console.log(err));
         },
 
         storeStep(){
@@ -271,7 +287,8 @@ export default {
                 data => {
 
                     this.id_project = this.set_id;
-                    this.nama_div = '';
+                    this.nama_div   = '';
+                    this.leader     = '';
                     this.fetchproject();
                 }
             )

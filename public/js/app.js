@@ -24980,7 +24980,6 @@ window.Vue = __webpack_require__(4);
 
 
 
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -54666,25 +54665,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             project: [],
+            userlist: [],
             api_key: this.token,
             set_id: this.id,
 
             step_post: {
                 id_project: this.id,
-                nama_div: ''
+                nama_div: '',
+                leader: ''
             },
 
             task_post: {
@@ -54700,27 +54693,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.fetchproject();
+        this.fetchuser();
     },
 
 
     methods: {
         fetchproject: function fetchproject() {
-            this.project = 'loading..';
-            var vm = this;
-            var axios_headers = {
+
+            this.project = 'Loading...';
+
+            var head = {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization': 'Bearer ' + this.api_key
             };
 
-            axios.get('/api/project/' + this.set_id, { headers: axios_headers }).then(function (response) {
+            var vm = this;
+
+            axios.get('/api/project/' + this.set_id, { headers: head }).then(function (response) {
                 vm.project = response.data;
             }).catch(function (error) {
-                vm.project = 'error euy kamaha nya' + error;
+                vm.project = 'error :' + error;
+            });
+        },
+        fetchuser: function fetchuser() {
+            var _this = this;
+
+            fetch('/api/user', {
+                method: 'get',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Authorization': 'Bearer ' + this.api_key
+                }
+            }).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.userlist = res.data;
+            }).catch(function (err) {
+                return console.log(err);
             });
         },
         storeStep: function storeStep() {
-            var _this = this;
+            var _this2 = this;
 
             fetch('/api/setting/store', {
                 method: 'post',
@@ -54733,15 +54748,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return res.data;
             }).then(function (data) {
 
-                _this.id_project = _this.set_id;
-                _this.nama_div = '';
-                _this.fetchproject();
+                _this2.id_project = _this2.set_id;
+                _this2.nama_div = '';
+                _this2.leader = '';
+                _this2.fetchproject();
             }).catch(function (err) {
                 return console.log(err);
             });
         },
         storeTask: function storeTask() {
-            var _this2 = this;
+            var _this3 = this;
 
             fetch('/api/task/store', {
                 method: 'post',
@@ -54753,8 +54769,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (res) {
                 return res.data;
             }).then(function (data) {
-                _this2.id_step = '', _this2.nama_task = '';
-                _this2.fetchproject();
+                _this3.id_step = '', _this3.nama_task = '';
+                _this3.fetchproject();
             });
         }
     }
@@ -54797,7 +54813,7 @@ var render = function() {
                             _c("span", { staticClass: "item-right" }),
                             _vm._v(" "),
                             _c("span", { staticClass: "list-text" }, [
-                              _vm._v(" " + _vm._s(step.nama_divisi) + " ")
+                              _vm._v(" " + _vm._s(step.nama_step) + " ")
                             ]),
                             _vm._v(" "),
                             _vm._m(2, true)
@@ -54837,7 +54853,52 @@ var render = function() {
         [
           _vm._m(6),
           _vm._v(" "),
-          _vm._m(7),
+          _c(
+            "table",
+            {
+              staticClass: "table is-indent",
+              attrs: {
+                "data-plugin": "animateList",
+                "data-animate": "fade",
+                "data-child": "tr",
+                "data-selectable": "selectable"
+              }
+            },
+            [
+              _vm._m(7),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.project.step, function(item) {
+                  return _c(
+                    "div",
+                    { key: item.id },
+                    _vm._l(item.task_list, function(item2) {
+                      return _c(
+                        "tr",
+                        {
+                          key: item2.id,
+                          attrs: {
+                            "data-url": "panel.tpl",
+                            "data-toggle": "slidePanel"
+                          }
+                        },
+                        [
+                          _c("td", { staticClass: "cell-300" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(item2.task) +
+                                "\n                            "
+                            )
+                          ])
+                        ]
+                      )
+                    })
+                  )
+                })
+              )
+            ]
+          ),
           _vm._v(" "),
           _vm._m(8),
           _vm._v(" "),
@@ -54933,6 +54994,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
+                              attrs: { "aria-placeholder": "Step" },
                               on: {
                                 change: function($event) {
                                   var $$selectedVal = Array.prototype.filter
@@ -54958,7 +55020,7 @@ var render = function() {
                               return _c(
                                 "option",
                                 { key: step.id, domProps: { value: step.id } },
-                                [_vm._v(_vm._s(step.nama_divisi))]
+                                [_vm._v(_vm._s(step.nama_step))]
                               )
                             })
                           )
@@ -54988,29 +55050,7 @@ var render = function() {
             [
               _c("div", { staticClass: "modal-dialog" }, [
                 _c("div", { staticClass: "modal-content" }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "close",
-                        attrs: {
-                          type: "button",
-                          "aria-hidden": "true",
-                          "data-dismiss": "modal"
-                        }
-                      },
-                      [_vm._v("×")]
-                    ),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "modal-title" }, [
-                      _vm._v(
-                        "Tambah Step " +
-                          _vm._s(_vm.step_post.nama_div) +
-                          " " +
-                          _vm._s(_vm.step_post.id_project)
-                      )
-                    ])
-                  ]),
+                  _vm._m(10),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-body" }, [
                     _c(
@@ -55025,6 +55065,13 @@ var render = function() {
                       },
                       [
                         _c("div", { staticClass: "form-group" }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.step_post.nama_div) +
+                              " " +
+                              _vm._s(_vm.step_post.id_project) +
+                              "\n                                    "
+                          ),
                           _c("input", {
                             directives: [
                               {
@@ -55038,7 +55085,7 @@ var render = function() {
                             attrs: {
                               type: "text",
                               name: "lablename",
-                              placeholder: "Label Name"
+                              placeholder: "Nama Task"
                             },
                             domProps: { value: _vm.step_post.nama_div },
                             on: {
@@ -55055,8 +55102,65 @@ var render = function() {
                             }
                           })
                         ]),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.step_post.leader) +
+                            "\n                                "
+                        ),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.step_post.leader,
+                                  expression: "step_post.leader"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.step_post,
+                                    "leader",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.userlist, function(userlist) {
+                              return _c(
+                                "option",
+                                {
+                                  key: userlist.user_id,
+                                  domProps: { value: userlist.user_id }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(userlist.user_name) +
+                                      "-" +
+                                      _vm._s(userlist.jobs.jabatan)
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ]),
                         _vm._v(" "),
-                        _vm._m(10)
+                        _vm._m(11)
                       ]
                     )
                   ])
@@ -55216,50 +55320,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "page-content-actions" }, [
-      _c("div", { staticClass: "pull-xs-right" }, [
-        _c("div", { staticClass: "dropdown" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-pure waves-effect",
-              attrs: {
-                type: "button",
-                "data-toggle": "dropdown",
-                "aria-expanded": "false"
-              }
-            },
-            [
-              _vm._v(
-                "\n                    Team Management\n                    "
-              ),
-              _c("span", {
-                staticClass: "icon md-chevron-down",
-                attrs: { "aria-hidden": "true" }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-menu", attrs: { role: "menu" } }, [
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "javascript:void(0)" }
-              },
-              [_vm._v("Tambah Team")]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "javascript:void(0)" }
-              },
-              [_vm._v("Anggota")]
-            )
-          ])
-        ])
-      ]),
+      _c("div", { staticClass: "pull-xs-right" }),
       _vm._v(" "),
       _c("div", { staticClass: "btn-group btn-group-flat" }, [
         _c("div", { staticClass: "dropdown" }, [
@@ -55366,68 +55427,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      {
-        staticClass: "table is-indent",
-        attrs: {
-          "data-plugin": "animateList",
-          "data-animate": "fade",
-          "data-child": "tr",
-          "data-selectable": "selectable"
-        }
-      },
-      [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
-              _vm._v("Task")
-            ]),
-            _vm._v(" "),
-            _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
-              _vm._v("Phone")
-            ]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Email")]),
-            _vm._v(" "),
-            _c("th", { staticClass: "suf-cell" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c(
-            "tr",
-            { attrs: { "data-url": "panel.tpl", "data-toggle": "slidePanel" } },
-            [
-              _c("td", { staticClass: "cell-300" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "avatar",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "img-fluid",
-                      attrs: { src: "", alt: "..." }
-                    })
-                  ]
-                ),
-                _vm._v(
-                  "\n                        Herman Beck\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "cell-300" }, [_vm._v("(119)-298-8025")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("julio.williamson73@gmail.com")]),
-              _vm._v(" "),
-              _c("td", { staticClass: "suf-cell" })
-            ]
-          )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "cell-300", attrs: { scope: "col" } }, [
+          _vm._v("Task")
         ])
-      ]
-    )
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -55482,6 +55488,27 @@ var staticRenderFns = [
         },
         [_vm._v("Cancel")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "aria-hidden": "true",
+            "data-dismiss": "modal"
+          }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Tambah Step ")])
     ])
   },
   function() {

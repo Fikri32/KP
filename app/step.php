@@ -9,7 +9,7 @@ class step extends Model
     protected $table = 'divisi';
 
     protected $fillable = [
-        'id_project','nama_divisi'
+        'id_project','nama_divisi','leader'
     ];
 
     public function Project()
