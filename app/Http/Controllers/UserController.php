@@ -20,20 +20,13 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-        if (Auth::user()->role == 'admin') {
 
-            $user = $user->where([
-                ['company',Auth::user()->company],
-                ['role','employe']
-                ])->paginate(10);
-            return UserResource::collection($user);
+        $user = $user->where([
+            ['company',Auth::user()->company],
+            ['role','employe']
+            ])->paginate(10);
+        return UserResource::collection($user);
 
-        }else{
-            return response()->json([
-                'message' => 'This Action Only For Admin!'
-            ],500);
-        }
-      
     }
 
     public function get_so(intDiv $div)
@@ -51,23 +44,26 @@ class UserController extends Controller
     public function store(Request $request,User $user)
     {
         if (Auth::user()->role == 'admin') {
-           
-            $exploded = explode(',',$request->image);
-            $decoded = base64_decode($exploded[1]);
-
-            if (str_contains($exploded[0],'jpeg')) {
-                $extension = 'jpg';
+            
+            if ($request->image) {
+                $exploded = explode(',',$request->image);
+                $decoded = base64_decode($exploded[1]);
+    
+                if (str_contains($exploded[0],'jpeg')) {
+                    $extension = 'jpg';
+                } else {
+                    $extension = 'png';
+                }
+                
+                $filename = str_random().'.'.$extension;
+    
+                $path = public_path().'/'.$filename;
+    
+                file_put_contents($path,$decoded);
             } else {
-                $extension = 'png';
+                $filename = '';
             }
             
-            $filename = str_random().'.'.$extension;
-
-            $path = public_path().'/'.$filename;
-
-            file_put_contents($path,$decoded);
-           
-
             $password = $request->user_nip;
 
             if ($password == null) {

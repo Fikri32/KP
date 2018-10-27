@@ -2,7 +2,7 @@
     <div>  
         <div class="page">
             <div class="page-header page-header-bordered page-header-tabs">
-                <h1 class="page-title">Project Debug :: Filter by {{filterBy}} :: Searching {{filter}}</h1>
+                <h1 class="page-title">Project Debug step leader :: {{filterBy_isLeader}}</h1>
                 <div class="page-header-actions">
                     <div class="input-search">
                         <input v-model="filter" type="text" class="form-control round" placeholder="cari Project...">
@@ -21,9 +21,6 @@
                         <a @click="filterevent(uname)" class="nav-link"  aria-expanded="false" role="tab">Manager Project</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link"  aria-expanded="false" role="tab">Leader Step</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
                         <a class="nav-link"  aria-expanded="false" role="tab">Officer </a>
                     </li>
                 </ul>
@@ -38,7 +35,7 @@
                             <div class="card card-block text-xs-center">
                                 <h4 class="card-title">{{project.project_name}}</h4>
                                 <p class="card-text">{{project.project_desc}}</p>
-                                <router-link :to="'/project/' + project.project_id">Actions</router-link>
+                                <a :href="'/project/' + project.project_id"> Actions </a>
                             </div>
                         </div>
                     </li>
@@ -60,7 +57,9 @@ export default {
             
             filter:'',//cari atau filter berdasarkan apapun yang bisa di filter 
 
-            filterBy:'',
+            filterBy:'',//filter jika user menjadi project leader/manager
+
+            filbystaff:'',//filter jika user sebagai staff di suatu proyek
         }
     },
 
@@ -75,7 +74,7 @@ export default {
     computed:{
         Filtering : function(){
             let fil_result = this.project;
-
+      
             if (this.filter) {
                 fil_result = fil_result.filter( item => 
                     item.project_name.includes(this.filter)
@@ -84,7 +83,7 @@ export default {
 
             if (this.filterBy) {
                 fil_result = fil_result.filter( item =>
-                    item.userpm.name.includes(this.filterBy)
+                    item.userpm.user_name.includes(this.filterBy)
                 );
             }
 
@@ -114,10 +113,20 @@ export default {
         filterevent(byWhat){
             let filterBy = byWhat;
             this.filterBy = filterBy;
+
+            this.filterBy_isLeader = ''; 
+        },//filter jika user adalah pm
+
+        filterByStepLeader(isLeaderStep){
+            let filterBy_isLeader = isLeaderStep;
+            this.filterBy_isLeader = filterBy_isLeader; 
+            //then 
+            this.filterBy = '';
         },
 
         defaultfilter(){
             this.filterBy = ''; 
+            this.filterBy_isLeader = '';
         }
     },
 }

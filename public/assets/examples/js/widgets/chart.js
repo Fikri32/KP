@@ -134,7 +134,7 @@
   // -----------------------
   (function() {
     var stacked_bar = new Chartist.Bar('#chartBarStacked .ct-chart', {
-      labels:['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+      labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
       series: [
         [11, 19, 17, 13, 2, 11, 26, 20, 27, 5, 22, 4],
         [6, 18, 7, 9, 26, 24, 3, 18, 28, 21, 19, 12],

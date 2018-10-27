@@ -22,6 +22,7 @@
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.11",
         "vue-router": "^3.0.1",
+        "vue-sweetalert2": "^1.5.6",
         "vuejs-datatable": "^1.6.0"
     }
 }

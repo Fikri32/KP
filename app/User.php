@@ -36,7 +36,12 @@ class User extends Authenticatable
 
     public function Divisi()
     {
-        return $this->HasOne('App\Divisi','id','tugas');
+        return $this->hasOne('App\Divisi','id','tugas');
     }
-    
+
+    public function Tasks ()
+    {
+        return $this->belongsTo('App\Tasks','handler','id');
+    }
+
 }

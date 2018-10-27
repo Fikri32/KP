@@ -2,11 +2,10 @@
 
 @section('page-content')
 <div class="example">
-  
   <div id="app">
-        <pspa-app :token = "'{{Auth::user()->api_token}}'" :name ="'{{Auth::user()->name}}'"> 
+        <project-staff :token = "'{{Auth::user()->api_token}}'" uname="{{Auth::user()->name}}">
 
-        </pspa-app>
+        </project-staff>
   </div>
 </div>
 @endsection

@@ -20,7 +20,6 @@ class User extends JsonResource
             'user_email' => $this->email,
             'user_role' => $this->role,
             'user_nip' => $this->nip,
-            'user_posi' =>$this->position,
             'user_pic' => $this->image,
             'user_registered' => $this->created_at->diffForHumans(),
             'jobs' => $this->Divisi

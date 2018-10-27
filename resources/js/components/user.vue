@@ -212,6 +212,8 @@
                 </nav>
             </div>
         </div>
+
+        <foot-vues></foot-vues>
     </div>
 </template>
 
@@ -383,7 +385,8 @@ export default {
                 this.user_post.user_name = user.user_name,
                 this.user_post.user_email = user.user_email,
                 this.user_post.user_nip = user.user_nip,
-                this.user_post.user_id = user.user_id
+                this.user_post.user_id = user.user_id,
+                this.user_post.id_tugas = user.jobs.id 
         },
 
         updateuser(user_id){
@@ -408,20 +411,40 @@ export default {
         },
 
         deleteuser(user_id){
-            if(confirm('Hapus Staff ini?')){
-                fetch(`api/user/delete/${user_id}`,{
+            this.$swal({
+                title: 'Anda Yakin?',
+                text: "User akan terhapus permanent!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tidak',
+            }).then((result) => {
+                if (result.value) {        
+                    fetch(`api/user/delete/${user_id}`,{
                     method:'delete',
                     headers:{
                         'Content-Type':'application/json',
                         'Authorization' : 'Bearer ' + this.api_Key
                     }   
-                })
-                .then(res => res.data)
-                .then(data => {
-                    this.fetchUser();
-                })
-                .catch(err=>console.log(err))
-            }
+                    })
+                    .then(res => res.data)
+                    .then(data => {
+                        this.$swal(
+                            'Terhapus!',
+                            'Data user telah terhapus.',
+                            'success'
+                        )
+                        this.fetchUser();
+                    })
+                    .catch(err=>console.log(err))
+                }
+            });
+
+
+           
+            
         }
 
     },//end methods

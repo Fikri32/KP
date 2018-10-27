@@ -62,7 +62,7 @@
   Breakpoints();
   </script>
 </head>
-<body class="animsition site-navbar-small app-contacts page-aside-left">
+<body class="animsition site-navbar-small page-aside-left">
   <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -84,25 +84,10 @@
         title="Remark">
         <span class="navbar-brand-text hidden-xs-down">ADMIN</span>
       </a>
-      <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
-      data-toggle="collapse">
-        <span class="sr-only">Toggle Search</span>
-        <i class="icon md-search" aria-hidden="true"></i>
-      </button>
     </div>
     <div class="navbar-container container-fluid">
       <!-- Navbar Collapse -->
       <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
-        <!-- Navbar Toolbar -->
-        <ul class="nav navbar-toolbar">
-          <li class="nav-item hidden-float">
-            <a class="nav-link icon md-search" data-toggle="collapse" href="#" data-target="#site-navbar-search"
-            role="button">
-              <span class="sr-only">Toggle Search</span>
-            </a>
-          </li>
-                </ul>
-        <!-- End Navbar Toolbar -->
         <!-- Navbar Toolbar Right -->
         <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
           <li class="nav-item dropdown">
@@ -312,20 +297,7 @@
         <!-- End Navbar Toolbar Right -->
       </div>
       <!-- End Navbar Collapse -->
-      <!-- Site Navbar Seach -->
-      <div class="collapse navbar-search-overlap" id="site-navbar-search">
-        <form role="search">
-          <div class="form-group">
-            <div class="input-search">
-              <i class="input-search-icon md-search" aria-hidden="true"></i>
-              <input type="text" class="form-control" name="site-search" placeholder="Search...">
-              <button type="button" class="input-search-close icon md-close" data-target="#site-navbar-search"
-              data-toggle="collapse" aria-label="Close"></button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <!-- End Site Navbar Seach -->
+
     </div>
   </nav>
 
@@ -351,6 +323,12 @@
                   <i class="site-menu-icon md-account" aria-hidden="true"></i>
                   <span class="site-menu-title">STAFF</span></a>
               </li>
+
+              <li class="dropdown site-menu-item has-sub">
+                <a data-toggle="dropdown" href="#" data-dropdown-toggle="false">
+                  <i class="site-menu-icon md-money" aria-hidden="true"></i>
+                  <span class="site-menu-title">Invoices</span></a>
+              </li>
             </ul>
           </div>
         </div>
@@ -362,13 +340,7 @@
     @yield('content')
   </div>
   <!-- End Page -->
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="site-footer-legal">© 2017 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Remark</a></div>
-    <div class="site-footer-right">
-      Crafted with <i class="red-600 icon md-favorite"></i> by <a href="http://themeforest.net/user/amazingSurge">amazingSurge</a>
-    </div>
-  </footer>
+  
   <!-- Core  -->
   <script src="{{asset('global/vendor/babel-external-helpers/babel-external-helpers.js')}}"></script>
   <script src="{{asset('global/vendor/jquery/jquery.js')}}"></script>
@@ -429,5 +401,14 @@
   <script src="{{asset('assets/js/BaseApp.js')}}"></script>
   <script src="{{asset('assets/js/App/Contacts.js')}}"></script>
   <script src="{{asset('assets/examples/js/apps/contacts.js')}}"></script>
+  <script>
+  (function(document, window, $) {
+    'use strict';
+    var Site = window.Site;
+    $(document).ready(function() {
+      Site.run();
+    });
+  })(document, window, jQuery);
+  </script>
 </body>
 </html>

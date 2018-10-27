@@ -43,11 +43,27 @@ class HomeController extends Controller
         } 
     }
 
-    public function setting($id)
+    public function actions($id)
     {
-        $get_id = $id;
-        //dd($get_id);
-        return view('Admin/setting')->with('get_ids',$get_id);
+        if (Auth::user()->role == 'admin') {
+            $get_id = $id;
+            return view('Admin/actions')->with('get_ids',$get_id);
+        } 
+    }
+
+    public function setting()
+    {
+        if (Auth::user()->role == 'admin') {
+            return view('Admin/setting_dek');
+        }
+    }
+
+    public function setting_struct($id)
+    {
+        if (Auth::user()->role == 'admin') {
+            $get_id = $id;
+            return view('Admin/setting_Struct')->with('data_id',$get_id);
+        }
     }
 
     public function employe()
@@ -56,8 +72,13 @@ class HomeController extends Controller
     }
 
     //Staff Area
-    public function action_page()
+    public function action_page($id)
     {
-        return view('employe/action');
+        if (Auth::user()->role == 'employe') {
+            $get_id = $id;
+    
+            return view('Employe/manager')->with('snd_id',$get_id);
+        }
+ 
     }
 }

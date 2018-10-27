@@ -17,6 +17,7 @@ class Project extends Model
         'client_company',
         'tanggal_mulai',
         'deadline',
+        'settings'
     ];
 
     public function User()
@@ -24,13 +25,14 @@ class Project extends Model
         return $this->hasOne('App\User','id','user_id');
     }
 
-    public function step()
+    public function Settings()
     {
-        return $this->hasMany('App\step','id_project','id');
+        return $this->belongsTo('App\Settings','settings','id');
     }
 
-    public function task()
+    public function Tasks()
     {
-        return $this->hasManyTrough('App\step','App\task','id_project','id_divisi');
+        return $this->belongsTo('App\Tasks','project','id');
     }
+
 }

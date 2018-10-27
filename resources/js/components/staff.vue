@@ -117,6 +117,8 @@
                 </div>
                 </div>
             </div>
-            </div>
-</div>
+        </div>
+
+        <foot-vues></foot-vues>
+    </div>
 </template>

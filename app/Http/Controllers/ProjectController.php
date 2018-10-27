@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Project;
+use App\Settings;
+use App\Http\Resources\Res_Setting;
 use App\Http\Resources\project as ProjectResource;
 
 
@@ -21,6 +23,8 @@ class ProjectController extends Controller
         $proj = $proj->where('company_id',Auth::user()->company)->paginate(10);
         return ProjectResource::collection($proj);
     }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,6 +39,8 @@ class ProjectController extends Controller
                 'nama_project' => 'required'
             ]);
             
+            $blankSpaces = 	666;
+            
             $proj = $proj -> create([
                 'user_id'               => $request->uid,
                 'company_id'            => Auth::user()->company,
@@ -43,6 +49,7 @@ class ProjectController extends Controller
                 'client_company'        => $request->client,
                 'deadline'              => $request->deadline,
                 'tanggal_mulai'         => $request->tgl_mulai,
+                'settings' => $blankSpaces
             ]);
     
             if (!$proj) {
@@ -61,9 +68,71 @@ class ProjectController extends Controller
                 'Message' => 'You prohibited to this action, due to your role.'
             ],500);
         }
-        
-   
     }
+
+    public function set_setting($id,Project $proj,Request $request)
+    {
+        
+        if (Auth::user()->role == 'admin') {
+            $proj = $proj->where('id',$id)->first();
+
+            if (!$proj) {
+                return response()->json([
+                    'Error' => 'Project dengan id '.$id.'tidak di temukan'
+                ],500);
+            }
+
+            $update = $proj->update([
+                'settings' => $request->id_setting,
+            ]);
+
+            if ($update) {
+                return response()->json([
+                    'Succes' => true
+                ],201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Upss.. ada yang salah'
+                ], 500);
+            }
+
+        } else {
+            return response()->json([
+                'message' => 'Anda tidak memiliki izin untuk melakukan aksi ini.'
+            ],500);
+        }
+        
+    }
+
+    public function set_structure(Project_Structures $struct,Request $request)
+    {
+        if (Auth::user()->role == 'admin') {
+
+            
+            $struct = $struct -> create([
+                'step' => $request->step,
+                'project' => $request->id_project,
+            ]);
+    
+            if (!$struct) {
+                return response()->json([
+                    'success'   => false,
+                    'message'   => 'data could not added'   
+                ],500);
+            }else {
+                $response = new Res_Project_Struct($struct);
+                return response()->json($response,201);
+            }
+
+        } else {
+            return response()->json([
+                'Error' => true,
+                'Message' => 'You prohibited to this action, due to your role.'
+            ],500);
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -73,19 +142,12 @@ class ProjectController extends Controller
      */
     public function show($id,Project $proj)
     {
-        $proj = $proj->where([
-            ['id','=',$id],
-            ['company_id','=',Auth::user()->company]
-        ])->first();
-
+        
+        $proj = $proj->where('id',$id)->first();
+ 
         if ($proj) {
             $response = new ProjectResource($proj);
             return response()->json($response,200);
-        } else {
-            return response()->json([
-                'Error' => true,
-                'Message' =>'Cant find project with id '.$id.'on your account data'
-            ],401);
         }
     }
 

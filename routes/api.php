@@ -21,9 +21,29 @@ Route::middleware('auth:api')->group(function(){
     Route::get('project/{id}','ProjectController@show')->name('project-show');
     Route::put('project/update/{id}','ProjectController@update')->name('project-update');
     Route::delete('project/delete/{id}','ProjectController@destroy')->name('project-delete');
-    //---- setting setting//
-    Route::post('setting/store','setting@store')->name('set_divisi_setting');
-    Route::post('task/store','tasklist@store')->name('set_task_per_setting');
+    //---- Setting Set ----//
+    Route::get('setting','SettingController@index')->name('get_Setting');
+    Route::post('setting/store','SettingController@store')->name('Setting-store');
+    Route::put('setting/update/{id}','SettingController@update');
+    Route::delete('setting/delete/{id}','SettingController@destroy');
+    //---- setting set per prject ----//
+    Route::put('project/set_setting/{id}','ProjectController@set_setting');
+    //---- team setup Setting ----//
+    Route::post('team/store','team@store')->name('store_team');
+    //---- Steps Set ---//
+    Route::get('steps/{id}','StepsController@index');
+    Route::post('steps/store','StepsController@store');
+    Route::put('steps/update/{id}','StepsController@update');
+    Route::delete('steps/delete/{id}','StepsController@destroy');
+    //---- task Set ----//
+    Route::get('task/{id}','TasksController@index');
+    Route::get('taskdata/{id}','TasksController@get_task');
+    Route::post('task/store','TasksController@store');
+    Route::put('task/update/{id}','TasksController@update');
+    #route task status 
+    Route::put('task/status/{id}','TasksController@statusTask');
+    Route::delete('task/delete/{id}','TasksController@destroy');
+
 });
 
 Route::middleware('auth:oauth')->group(function(){
