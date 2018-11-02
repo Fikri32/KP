@@ -6,7 +6,7 @@
             <div class="row">
               <div class="col-xs-12 col-lg-3">
                 <h4>
-                  <img class="m-r-10" src="../../assets//images/logo-blue.png" alt="...">POME</h4>
+                  <img class="m-r-10" src="" alt="...">POME</h4>
                 <address>
                   795 Folsom Ave, Suite 600
                   <br> San Francisco, CA, 94107
@@ -143,12 +143,16 @@ export default {
 
     props:['token','id'],
 
-    computed:{},
+    computed:{
 
-    created(){},
+    },
+
+    created(){
+
+    },
 
     methods:{
-
+      
     },
     
 }

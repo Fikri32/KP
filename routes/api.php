@@ -15,34 +15,53 @@ Route::middleware('auth:api')->group(function(){
     Route::get('user/{id}','UserController@show')->name('user-show');
     Route::put('user/update/{id}','UserController@update')->name('user-update');
     Route::delete('user/delete/{id}','UserController@destroy')->name('user-delete');
+
     //project Management
     Route::get('project','ProjectController@index')->name('project-index');
     Route::post('project/store','ProjectController@store')->name('project-store');
     Route::get('project/{id}','ProjectController@show')->name('project-show');
     Route::put('project/update/{id}','ProjectController@update')->name('project-update');
     Route::delete('project/delete/{id}','ProjectController@destroy')->name('project-delete');
+
     //---- Setting Set ----//
     Route::get('setting','SettingController@index')->name('get_Setting');
     Route::post('setting/store','SettingController@store')->name('Setting-store');
     Route::put('setting/update/{id}','SettingController@update');
     Route::delete('setting/delete/{id}','SettingController@destroy');
+
     //---- setting set per prject ----//
     Route::put('project/set_setting/{id}','ProjectController@set_setting');
+
     //---- team setup Setting ----//
     Route::post('team/store','team@store')->name('store_team');
+
     //---- Steps Set ---//
     Route::get('steps/{id}','StepsController@index');
     Route::post('steps/store','StepsController@store');
     Route::put('steps/update/{id}','StepsController@update');
     Route::delete('steps/delete/{id}','StepsController@destroy');
+
     //---- task Set ----//
     Route::get('task/{id}','TasksController@index');
     Route::get('taskdata/{id}','TasksController@get_task');
     Route::post('task/store','TasksController@store');
     Route::put('task/update/{id}','TasksController@update');
+
     #route task status 
     Route::put('task/status/{id}','TasksController@statusTask');
     Route::delete('task/delete/{id}','TasksController@destroy');
+
+    //client management
+    Route::get('client','ClientController@index');
+    Route::post('client/store','ClientController@store');
+    Route::put('client/update/{id}','ClientController@update');
+    Route::delete('client/delete/{id}','ClientController@destroy');
+
+    //currency main management
+    Route::get('payment/{project}','PaymentsController@index');
+    Route::post('payment/store','PaymentsController@store');
+    Route::put('payment/update/{id}','PaymentsController@update');
+    Route::delete('payment/delete/{id}','PaymentsController@destroy');
 
 });
 

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Payments;
+use App\Http\Resources\Res_Payments;
 
 class PaymentsController extends Controller
 {
@@ -11,19 +14,10 @@ class PaymentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id,Payments $pay)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $pay = $pay->where('project',$id)->get();
+        return Res_Payments::collection($pay);
     }
 
     /**
@@ -32,31 +26,31 @@ class PaymentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Payments $pay,Request $request)
     {
-        //
-    }
+        if (Auth::user()->role == 'admin') {
+            $pay = $pay->create([
+                'project'           => $request->project,
+                'desc'              => $request->desc,
+                'paid_at'           => $request->paid_at,
+                'payment_amount'    => $request->amount,
+            ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            if(!$pay){
+                return response()->json([
+                    'message' => 'data tidak bisa di tambah euy'
+                ],500);
+            }else{
+                $response = new Res_Payments($pay); 
+                return response()->json($response,210);
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        } else {
+            return response()->json([
+                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini'
+            ]);
+        }
+        
     }
 
     /**
@@ -66,9 +60,30 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Payments $pay,Request $request, $id)
     {
-        //
+        if (Auth::user()->role == 'admin') {
+            $pay = $pay->where('id',$id)->first();
+            if (!$pay) {
+                return response()->json([
+                    'message' => 'pembayaran dengan id '.$id.' tidak di temukan.'
+                ],401);
+            }
+            
+            $update = $pay->update([
+                'desc'              => $request->desc,
+                'paid_at'           => $request->paid_at,
+                'payment_amount'    => $request->amount,
+                'total'             => $request->total,
+            ]);
+
+
+        } else {
+            return response()->json([
+                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini'
+            ]);
+        }
+        
     }
 
     /**
@@ -77,8 +92,32 @@ class PaymentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Payments $pay,$id)
     {
-        //
+        if (Auth::user()->role == 'admin') {
+            $pay = $pay->where('id',$id);
+
+            if (!$pay) {
+                return response()->json([
+                    'message' => 'pembayaran dengan id '.$id.' tidak di temukan.'
+                ],401);
+            }
+
+            if ($pay->delete()) {
+                return response()->json([
+                    'message' => 'pembayaran berhasil di hapus.'
+                ],201);
+            }else{
+                return response()->json([
+                    'message' => 'pembayaran tidak berhasil di hapus.'
+                ],500);
+            }
+
+        } else {
+            return response()->json([
+                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini'
+            ]);
+        }
+        
     }
 }

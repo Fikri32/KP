@@ -24,7 +24,6 @@ class ProjectController extends Controller
         return ProjectResource::collection($proj);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +45,7 @@ class ProjectController extends Controller
                 'company_id'            => Auth::user()->company,
                 'nama_project'          => $request->nama_project,
                 'deskripsi_project'     => $request->deskripsi_project,
-                'client_company'        => $request->client,
+                'client'                => $request->client,
                 'deadline'              => $request->deadline,
                 'tanggal_mulai'         => $request->tgl_mulai,
                 'settings' => $blankSpaces
@@ -133,7 +132,6 @@ class ProjectController extends Controller
         }
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -161,7 +159,6 @@ class ProjectController extends Controller
     public function update(Request $request, $id,Project $proj)
     {
         if (Auth::user()->role == 'admin') {
-            
             $proj = $proj->where([
                 ['id','=',$id],
                 ['company_id','=',Auth::user()->company]
@@ -178,7 +175,7 @@ class ProjectController extends Controller
                 'user_id'               => $request->uid,
                 'nama_project'          => $request->nama_project,
                 'deskripsi_project'     => $request->deskripsi_project,
-                'client_company'        => $request->client,
+                'client'                => $request->client,
                 'deadline'              => $request->deadline,
                 'tanggal_mulai'         => $request->tgl_mulai,
             ]);

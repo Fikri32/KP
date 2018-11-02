@@ -126,7 +126,8 @@ class TasksController extends Controller
         }
 
         $update = $task->update([
-            'status' => $request->status
+            'status' => $request->status,
+            'finished_at'   => $request->finish,
         ]);
 
         if (!$update) {

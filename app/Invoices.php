@@ -9,13 +9,16 @@ class Invoices extends Model
     protected $table = 'invoices';
 
     protected $fillable = [
-        'invoice_id',
+        'Payment_id',
         'notes',
-        'total',
         'status',
-        'due_date',
-        'project'
+        'due_date'
     ];
 
     protected $timestamps = false;
+
+    public function Payments ()
+    {
+        return $this->belongsTo('App\payments','id','Payment_id');
+    }
 }

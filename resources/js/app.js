@@ -24,15 +24,19 @@ window.swal = require('sweetalert2');
  */
 
 //funct components
-Vue.component('side-menu',require('./components/sidemenu.vue'));
+Vue.component('side-menu',require('./components/admin/sidemenu.vue'));
 Vue.component('foot-vues',require('./components/footer.vue'));
+Vue.component('dashboard-admin',require('./components/admin/admin_dashboard.vue'));
 
 //admin 
-Vue.component('project-admin', require('./components/project.vue'));
-Vue.component('user', require('./components/user.vue'));
-Vue.component('setting-project',require('./components/project_adActions.vue'));
-Vue.component('setting-declar',require('./components/setting.vue'));
-Vue.component('setting-struct',require('./components/setting_struct.vue'));
+Vue.component('project-admin', require('./components/admin/project.vue'));
+Vue.component('user', require('./components/admin/user.vue'));
+Vue.component('setting-project',require('./components/admin/project_adActions.vue'));
+Vue.component('setting-declar',require('./components/admin/setting.vue'));
+Vue.component('setting-struct',require('./components/admin/setting_struct.vue'));
+Vue.component('invoice-vues',require('./components/admin/invoice.vue'));
+Vue.component('payment',require('./components/admin/payments.vue'));
+Vue.component('client-company',require('./components/admin/client.vue'));
 
 //employe
 Vue.component('project-staff', require('./components/project_staff.vue'));

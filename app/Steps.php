@@ -11,8 +11,8 @@ class Steps extends Model
     protected $fillable = [
         'id',
         'name',
-        'Project_struct_id',
-        'setting_id'
+        'setting_id',
+        'leader',
     ];
 
     public $timestamps = false;

@@ -71,6 +71,23 @@ class HomeController extends Controller
         return view('Admin/employe');
     }
 
+    public function invoice()
+    {
+        if (Auth::user()->role == 'admin') {
+            return view('Admin/invoices');
+        }
+    }
+
+    public function client(){
+        return view('Admin/client');
+    }
+
+    public function payment($id){
+        if (Auth::user()->role == 'admin') {
+            return view('Admin/payments')->with('snd_id',$id);
+        }
+    }
+
     //Staff Area
     public function action_page($id)
     {

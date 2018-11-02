@@ -22,10 +22,13 @@ Route::middleware(['web'])->group(function(){
 
     //admin area
     Route::get('/project', 'HomeController@project')->name('project');
+    Route::get('/client','HomeController@client')->name('client');
     Route::get('/employe','HomeController@employe')->name('user');
     Route::get('/actions/{id}','HomeController@actions')->name('actions');
     Route::get('/Setting','HomeController@setting')->name('setting_declar');
     Route::get('/setting/{id}','HomeController@setting_struct');
+    Route::get('/invoices','HomeController@invoice');
+    Route::get('/payment/{id}','HomeController@payment');
     //staff area
     Route::get('project/{id}','HomeController@action_page')->name('action');
 });

@@ -38,6 +38,7 @@
                                 </div>
                                 
                                 <form @submit.prevent="storeProject" class="form-horizontal form-label-left" novalidate>
+                                    
                                     <div class="modal-body">
                                         <div class="item form-group">
                                         <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_lengkap">Nama Project</h6>
@@ -49,7 +50,9 @@
                                         <div class="item form-group">
                                         <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Client</h6>
                                             <div class="col-md-10 col-sm-6 col-xs-12">
-                                                <input id="posisi" v-model="project_post.client" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" placeholder="Client" required="required" type="text">
+                                                <select v-model="project_post.client" class="form-control">
+                                                    <option v-for="item in client" :key="item.id" :value="item.id">{{item.name}}</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -123,9 +126,11 @@
                                             </div>
 
                                             <div class="item form-group">
-                                            <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Client</h6>
+                                                <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Client</h6>
                                                 <div class="col-md-10 col-sm-6 col-xs-12">
-                                                    <input id="posisi" v-model="project_post.client" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" placeholder="Client" required="required" type="text">
+                                                    <select v-model="project_post.client" class="form-control">
+                                                        <option v-for="item in client" :key="item.id" :value="item.id">{{item.name}}</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -214,54 +219,6 @@
                     </div>
                     <!-- End Modal -->
 
-                    <!-- Modal -->
-                    <div class="modal fade example-modal-lg in" id="detailproj" aria-hidden="true" aria-labelledby="exampleModalTabs"
-                    role="dialog" tabindex="-1">
-                        <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                <h4 class="modal-title" id="exampleModalTabs">View Project</h4>
-                            </div>
-                            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-                                <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#home"
-                                    aria-controls="exampleLine1" role="tab">Home</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#team"
-                                    aria-controls="exampleLine2" role="tab">Team</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#task"
-                                    aria-controls="exampleLine3" role="tab">Task</a></li>
-                            </ul>
-                            <div class="modal-body">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="home" role="tabpanel">
-                                    <span class="font-size-16 font-weight-400 blue-grey-500">Project Preview</span>
-                                    <div class="card-block">
-                                        <h5 class="card-title font-weight-100"><b>{{detailContainer.nama_project}}</b></h5>
-                                        <h5 class="card-title font-weight-100" style="text-align:right"> Project Manager {{ detailContainer.pm }}</h5>
-                                        <h5 class="card-title font-weight-100" style="text-align:right"> {{ detailContainer.pmnip }}</h5>
-                                        <p style="text-align:right" class="card-text">
-                                            <small>Dibuat {{detailContainer.project_added}}</small>
-                                        </p>
-                                        <hr>
-                                    
-                                        <p class="card-text">{{detailContainer.deskripsi_project}} </p>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="team" role="tabpanel">
-                                    team
-                                </div>
-                                <div class="tab-pane" id="task" role="tabpanel">
-                                    Task
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    <!-- End Modal -->
-                
                     <div class="form-group form-material">
                         <button class="btn btn-primary waves-effect waves-light btn-sm" data-toggle="modal" data-target=".createp"><i class="icon md-plus" aria-hidden="true"></i>project</button>
                     </div>
@@ -285,7 +242,7 @@
                                 <td>{{project.project_id}}</td>
                                 <td><a :href="'/actions/'+project.project_id">{{project.project_name}}</a></td>
                                 <td>{{project.userpm.user_name}}</td>
-                                <td>{{project.project_client}}</td>
+                                <td>{{project.project_client.name}}</td>
                                 <td>{{project.project_Date}}</td>
                                 <td>{{project.project_deadline}}</td>
                                 
@@ -352,6 +309,8 @@ export default {
 
             setting:[],
 
+            client:[],
+
             search:'',
 
             sortby:'',
@@ -366,16 +325,6 @@ export default {
                 project_man:'',
             },
 
-            detailContainer:{
-                nama_project:'',
-                project_added:'',
-                deskripsi_project:'',
-                client:'',
-                deadline:'',
-                pm:'',
-                pmnip:'',
-            },
-
             select_setting:
             {
                 id_setting : '',
@@ -383,8 +332,6 @@ export default {
                 id_project : '',
             },
 
-         
-            
             pagination:{},
 
             api_key : this.token,
@@ -398,16 +345,10 @@ export default {
         this.fetchProject();
         this.fetchuser();
         this.fetchsetting();
+        this.fetchClient();
     },
 
     computed:{
-        filtering:function() {
-            return this.project.filter((project)=> {
-                return project.project_name.match(this.search);
-            })
-        },
-
-
         advfiltering:function() {
             let result = this.project;
            
@@ -425,7 +366,7 @@ export default {
             }
             
             if (this.sortby == 'client') {
-                return result.sort((a,b) => asc_desc * a.project_client.localeCompare(b.project_client))
+                return result.sort((a,b) => asc_desc * a.project_client.name.localeCompare(b.project_client.name))
             }
 
             if (this.sortby == 'pm') {
@@ -437,6 +378,7 @@ export default {
     },
     
     methods:{
+        //Fetching Data
         fetchProject(url){
             let vm = this;
 
@@ -492,6 +434,21 @@ export default {
             .catch(error => console.log(error));
         },
 
+        fetchClient(){
+            fetch('/api/client',{
+                method:'get',
+                headers:{
+                    'Accept':'application/json',
+                    'Authorization': 'Bearer ' + this.api_key 
+                },
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.client = res.data;
+            })
+            .catch(err => console.log(err));
+        },
+        //----------------------------------------
         setSort( preg ){
              let sortby = preg;
              this.sortby = sortby;
@@ -537,12 +494,10 @@ export default {
             this.project_post.project_id        = project.project_id;
             this.project_post.nama_project      = project.project_name;
             this.project_post.deskripsi_project = project.project_desc;
-            this.project_post.client            = project.project_client;
+            this.project_post.client            = project.project_client.id;
             this.project_post.deadline          = project.project_deadline;
             this.project_post.tgl_mulai         = project.project_Date;
             this.project_post.uid               = project.userpm.user_id;
-            this.project_post.project_man       = project.userpm.name;
-
         },
 
         select(project){
@@ -565,17 +520,6 @@ export default {
                 this.fetchProject();
             })
             .catch(err => console.log(err));
-        },
-
-        detailProj(project){
-            this.detailContainer.nama_project = project.project_name;
-            this.detailContainer.project_added = project.project_added;
-            this.detailContainer.deskripsi_project = project.project_desc;
-            this.detailContainer.client = project.project_client;
-            this.detailContainer.deadline = project.project_deadline;
-            this.detailContainer.pm = project.userpm.user_name;
-            this.detailContainer.pmnip = project.userpm.nip;
-            this.detailContainer.pmpic = project.userpm.image;
         },
 
         update(project_id){

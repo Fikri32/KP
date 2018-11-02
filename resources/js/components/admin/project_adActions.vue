@@ -12,7 +12,7 @@
                             <div class="list-group">
                                 <a class="list-group-item" href="/project"><i class="icon md-view-dashboard" aria-hidden="true"></i>Project List</a>
                                 <a class="list-group-item" href="/Setting"><i class="icon md-assignment" aria-hidden="true"></i>Setting Project</a>
-                                <a class="list-group-item" href="#"><i class="icon md-money" aria-hidden="true"></i>Pembayaran</a>
+                                <a class="list-group-item" :href="'/payment/' + project[0].project_id"><i class="icon md-money" aria-hidden="true"></i>Pembayaran</a>
                             </div>
                         </div>
 
@@ -279,7 +279,6 @@
                                         
                                             <div class="item form-group">
                                                 <h6>Tanggal Selesai</h6>
-
                                                 <input v-model="task_post.finish" type="date" class="form-control">
                                             </div>
 
@@ -318,9 +317,9 @@ export default {
                 step:'',
                 handler:'',
                 deadline:'',
-                finish:'',
                 //this data can change independently
                 status:'',
+                finish:'',
                 //---non inputable data
                 project:this.id,
                 //upon edits called
@@ -538,7 +537,8 @@ export default {
             })
             .then(res => res.json)
             .then(res => {
-                this.task_post.status;
+                this.task_post.status = '';
+                this.task_post.finish = '';
                 this.taskdata();
             })
             .catch(err => consle.log(err))

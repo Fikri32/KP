@@ -14,7 +14,7 @@ class Project extends Model
         'deskripsi_project',
         'user_id',
         'company_id',
-        'client_company',
+        'client',
         'tanggal_mulai',
         'deadline',
         'settings'
@@ -33,6 +33,16 @@ class Project extends Model
     public function Tasks()
     {
         return $this->belongsTo('App\Tasks','project','id');
+    }
+
+    public function Client()
+    {
+        return $this->hasOne('App\Client','id','client');
+    }
+
+    public function Payments()
+    {
+        return $this->hasMany('App\Payments','project','id');
     }
 
 }

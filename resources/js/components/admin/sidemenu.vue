@@ -7,6 +7,7 @@
                     <h5 class="page-aside-title">Main</h5>
                     <div class="list-group">
                         <a class="list-group-item" href="/project"><i class="icon md-view-dashboard" aria-hidden="true"></i>Project List</a>
+                        <a class="list-group-item" href="/client"><i class="icon wb-users" aria-hidden="true"></i>Client List</a>
                         <a class="list-group-item" href="/Setting"><i class="icon md-assignment" aria-hidden="true"></i>Setting Project</a>
                     </div>
                     </section>

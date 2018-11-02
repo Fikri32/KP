@@ -20,12 +20,13 @@ class project extends JsonResource
             'project_Uid'       => $this->user_id,
             'project_name'      => $this->nama_project,
             'project_desc'      => $this->deskripsi_project,
-            'project_client'    => $this->client_company,
+            'project_client'    => Res_client::make($this->Client),
             'project_deadline'  => $this->deadline,
             'project_Date'      => $this->tanggal_mulai,
             'project_added'     => $this->created_at->diffForHumans(),
             'userpm'            => User::make($this->User),
             'setting'           => Res_setting::make($this->Settings),
+            'pembayaran'        => Res_Payments::collection($this->Payments),
         ];
     }
 }

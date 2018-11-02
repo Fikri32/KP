@@ -2,7 +2,7 @@
     <div>  
         <div class="page">
             <div class="page-header page-header-bordered page-header-tabs">
-                <h1 class="page-title">Project Debug step leader :: {{filterBy_isLeader}}</h1>
+                <h1 class="page-title">Project Debug step leader :: {{filterBySL}}</h1>
                 <div class="page-header-actions">
                     <div class="input-search">
                         <input v-model="filter" type="text" class="form-control round" placeholder="cari Project...">
@@ -18,7 +18,10 @@
                         role="tab">All</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a @click="filterevent(uname)" class="nav-link"  aria-expanded="false" role="tab">Manager Project</a>
+                        <a @click="PMfilterevent(uname)" class="nav-link"  aria-expanded="false" role="tab">Manager Project</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a @click="SLfilterEvent(uname)" class="nav-link" aria-expanded="false" role="tab">Step Leader </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link"  aria-expanded="false" role="tab">Officer </a>
@@ -57,9 +60,9 @@ export default {
             
             filter:'',//cari atau filter berdasarkan apapun yang bisa di filter 
 
-            filterBy:'',//filter jika user menjadi project leader/manager
+            filterByPM:'',//filter jika user menjadi project leader/manager,atau steps leader
 
-            filbystaff:'',//filter jika user sebagai staff di suatu proyek
+            filterBySL:'',//filter jika user adalah SL(Steps Leader)
         }
     },
 
@@ -81,10 +84,14 @@ export default {
                 );
             }
 
-            if (this.filterBy) {
+            if (this.filterByPM) {
                 fil_result = fil_result.filter( item =>
-                    item.userpm.user_name.includes(this.filterBy)
+                    item.userpm.user_name.includes(this.filterByPM)
                 );
+            }
+
+            if (this.filterBySL) {
+                
             }
 
             return fil_result;
@@ -110,23 +117,24 @@ export default {
             .catch(err => console.log(err));
         },
 
-        filterevent(byWhat){
+        PMfilterevent(byWhat){
+            //filter jika user adalah pm
             let filterBy = byWhat;
-            this.filterBy = filterBy;
+            this.filterByPM = filterBy;
+            //kosongkan variable filter lain(SL)
+            this.filterBySL = '';
+        },
 
-            this.filterBy_isLeader = ''; 
-        },//filter jika user adalah pm
-
-        filterByStepLeader(isLeaderStep){
-            let filterBy_isLeader = isLeaderStep;
-            this.filterBy_isLeader = filterBy_isLeader; 
-            //then 
-            this.filterBy = '';
+        SLfilterEvent(params){
+            let filterBySL = params;
+            this.filterBySL = filterBySL;
+            //kosongkan varable filter lain(PM)
+            this.filterByPM = '';   
         },
 
         defaultfilter(){
-            this.filterBy = ''; 
-            this.filterBy_isLeader = '';
+            this.filterByPM ='';
+            this.filterBySL ='';
         }
     },
 }

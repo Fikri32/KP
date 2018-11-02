@@ -329,12 +329,18 @@
                   <i class="site-menu-icon md-money" aria-hidden="true"></i>
                   <span class="site-menu-title">Invoices</span></a>
               </li>
+
+               <li class="dropdown site-menu-item has-sub">
+                <a data-toggle="dropdown" href="{{route('client')}}" data-dropdown-toggle="false">
+                  <i class="site-menu-icon wb-users" aria-hidden="true"></i>
+                  <span class="site-menu-title">Client</span></a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
   </div>
-
+              
   <!-- Page -->
   <div class="page bg-white">
     @yield('content')
@@ -359,11 +365,11 @@
   <script src="{{asset('global/vendor/matchheight/jquery.matchHeight-min.js')}}"></script>
   <script src="{{asset('global/vendor/peity/jquery.peity.min.js')}}"></script>
   <script src="{{asset('global/vendor/bootbox/bootbox.js')}}"></script>
-  <script src="{{asset('global/vendor/asrange/jquery-asRange.min.js')}}"></script>
   <script src="{{asset('global/vendor/typeahead-js/bloodhound.min.js')}}"></script>
   <script src="{{asset('global/vendor/jquery-placeholder/jquery.placeholder.js')}}"></script>
   <script src="{{asset('global/vendor/typeahead-js/typeahead.jquery.min.js')}}"></script>
   <script src="{{asset('global/vendor/dropify/dropify.min.js')}}"></script>
+
   <!-- Scripts -->
   <script src="{{asset('global/js/State.js')}}"></script>
   <script src="{{asset('global/js/Component.js')}}"></script>
