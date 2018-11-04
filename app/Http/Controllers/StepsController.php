@@ -61,36 +61,27 @@ class StepsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Steps $step,Request $request, $id)
-    {
-        if (Auth::user()->role == 'admin') {
-            
-            $step = $step -> where('id',$id)->first();
+    {   
+        $step = $step -> where('id',$id)->first();
 
-            if (!$step) {
-                return response()->json([
-                    'message' => 'Steps dengan Id '.$id.' tidak di temukan'
-                ]);
-            }
-
-            $update = $step->update([
-                'name' => $request->nama_div,
+        if (!$step) {
+            return response()->json([
+                'message' => 'Steps dengan Id '.$id.' tidak di temukan'
             ]);
+        }
 
-            if ($update) {
-                return response()->json([
-                    'message' => 'data Steps berhasil di update'
-                ],201);
-            } else {
-                return response()->json([
-                    'message' => 'data Steps tidak berhasil di update'
-                ],500);
-            }
-            
+        $update = $step->update([
+            'name' => $request->nama_div,
+        ]);
 
+        if ($update) {
+            return response()->json([
+                'message' => 'data Steps berhasil di update'
+            ],201);
         } else {
             return response()->json([
-                'message' => 'Anda tidak memiliki izin untuk melakukan aksi ini'
-            ]);
+                'message' => 'data Steps tidak berhasil di update'
+            ],500);
         }
     }
 
@@ -126,5 +117,35 @@ class StepsController extends Controller
                 'message' => 'Anda tidak memiliki izin untuk melakukan aksi ini'
             ]);
         }
+    }
+
+    //set leader steps 
+
+    public function leaderSteps(Steps $step,Request $request)
+    {
+       //dd($request);
+
+       $step = $step->where('id',$request->step)->first();
+
+       if (!$step) {
+           return response()->json([
+               'message ' => 'Steps dengan id'.$request->step.' Tidak Di temukan'
+           ],404);
+       }
+
+       $update = $step->update([
+            'leader' => $request->leader
+       ]);
+
+       if ($update) {
+           return response()->json([
+               'message' => 'Leader berhasil tersimpan'
+           ],201);
+       } else {
+           return response()->json([
+               'message' => 'Leader tidak berhasil tersimpan'
+           ],500);
+       }
+       
     }
 }

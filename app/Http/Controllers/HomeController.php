@@ -88,6 +88,10 @@ class HomeController extends Controller
         }
     }
 
+    public function ad_profile($id){
+        return view('Admin/profile')->with('user',$id);
+    }
+
     //Staff Area
     public function action_page($id)
     {

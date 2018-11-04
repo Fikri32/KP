@@ -28,9 +28,12 @@ Vue.component('side-menu',require('./components/admin/sidemenu.vue'));
 Vue.component('foot-vues',require('./components/footer.vue'));
 Vue.component('dashboard-admin',require('./components/admin/admin_dashboard.vue'));
 
+//profile user page (Admi & employe)
+Vue.component('prof-admin',require('./components/profile/admin_prof.vue'));
+
 //admin 
-Vue.component('project-admin', require('./components/admin/project.vue'));
-Vue.component('user', require('./components/admin/user.vue'));
+Vue.component('project-admin',require('./components/admin/project.vue'));
+Vue.component('user',require('./components/admin/user.vue'));
 Vue.component('setting-project',require('./components/admin/project_adActions.vue'));
 Vue.component('setting-declar',require('./components/admin/setting.vue'));
 Vue.component('setting-struct',require('./components/admin/setting_struct.vue'));

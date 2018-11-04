@@ -543,6 +543,7 @@ export default {
             })
             .catch(err => consle.log(err))
         },
+        //------------------------------------------------------------------
 
         //operation filtering
         filterby(params){

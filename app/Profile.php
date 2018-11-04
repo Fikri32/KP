@@ -9,10 +9,17 @@ class Profile extends Model
     protected $table = 'profile';
 
     protected $fillable = [
-        'comapany_name',
-        'adress',
+        'addres',
         'email',
         'phone',
-        'fax'
+        'fax',
+        'user'
     ];
+
+    public $timestamps = false;
+
+    public function User()
+    {
+        return $this->BelongsTo('App\User','id','user');
+    }
 }

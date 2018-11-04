@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Res_Steps extends JsonResource
+class Res_profile extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,6 @@ class Res_Steps extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'setting_id' => $this->setting_id,
-            'leader' => User::make($this->User),
-        ];
+        return parent::toArray($request);
     }
 }

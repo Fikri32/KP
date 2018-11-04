@@ -40,6 +40,8 @@ Route::middleware('auth:api')->group(function(){
     Route::post('steps/store','StepsController@store');
     Route::put('steps/update/{id}','StepsController@update');
     Route::delete('steps/delete/{id}','StepsController@destroy');
+    //set leader steps
+    Route::put('steps/leader','StepsController@leaderSteps');
 
     //---- task Set ----//
     Route::get('task/{id}','TasksController@index');
@@ -62,6 +64,14 @@ Route::middleware('auth:api')->group(function(){
     Route::post('payment/store','PaymentsController@store');
     Route::put('payment/update/{id}','PaymentsController@update');
     Route::delete('payment/delete/{id}','PaymentsController@destroy');
+
+    //profile user & admin
+    Route::get('profile/{userid}','Profile@index');
+    Route::post('profile/store','Profile@store');
+    Route::put('profile/update/{id}','Profile@update');
+    Route::put('profile/photo/{id}','Profile@image_store');
+    Route::delete('profile/delete/{id}','Profile@destroy');
+
 
 });
 

@@ -29,6 +29,7 @@ Route::middleware(['web'])->group(function(){
     Route::get('/setting/{id}','HomeController@setting_struct');
     Route::get('/invoices','HomeController@invoice');
     Route::get('/payment/{id}','HomeController@payment');
+    Route::get('/proflie/admin/{id}','HomeController@ad_profile')->name('admin_prof');
     //staff area
     Route::get('project/{id}','HomeController@action_page')->name('action');
 });

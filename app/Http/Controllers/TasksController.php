@@ -38,7 +38,7 @@ class TasksController extends Controller
      */
     public function store(Tasks $task,Request $request)
     {
-        if (Auth::user()->role =='admin') {
+     
 
             $task = $task -> create([
                 'name'          => $request->task,
@@ -61,11 +61,7 @@ class TasksController extends Controller
                 return response()->json($response,201);
             }
 
-        } else {
-            return response()->json([
-                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini(admin Only)'
-            ]);
-        }
+       
         
     }
 
@@ -79,7 +75,7 @@ class TasksController extends Controller
      */
     public function update(Tasks $task,Request $request, $id)
     {
-        if (Auth::user()->role =='admin') {
+        
 
             $task = $task->where('id',$id)->first();
             
@@ -108,11 +104,7 @@ class TasksController extends Controller
                 ],500);
             }
 
-        } else {
-            return response()->json([
-                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini(admin Only)'
-            ]);
-        }
+   
         
     }
 
@@ -151,7 +143,7 @@ class TasksController extends Controller
      */
     public function destroy(Tasks $task,$id)
     {
-        if (Auth::user()->role =='admin') {
+        
             $task = $task->where('id',$id);
 
             if (!$task) {
@@ -169,11 +161,7 @@ class TasksController extends Controller
                     'message' => 'data Tasks tidak berhasil di hapus'
                 ],500);
             }
-        } else {
-            return response()->json([
-                'message' => 'anda tidak memiliki izin untuk melakukan aksi ini(admin Only)'
-            ]);
-        }
+      
         
     }
 }

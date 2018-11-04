@@ -44,4 +44,14 @@ class User extends Authenticatable
         return $this->belongsTo('App\Tasks','handler','id');
     }
 
+    public function Profile()
+    {
+        return $this->hasOne('App\Profile','user','id');
+    }
+
+    public function Steps()
+    {
+        return $this->belongsTo('App\Steps','leader','id');
+    }
+
 }

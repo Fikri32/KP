@@ -27,4 +27,7 @@ class Steps extends Model
         return $this->belongsTo('App\Tasks','Steps_id','id');
     }
 
+    public function User(){
+        return $this->hasOne('App\User','id','leader');
+    }
 }
