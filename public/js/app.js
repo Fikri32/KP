@@ -63278,7 +63278,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-            if (this.filterBySL) {}
+            if (this.filterBySL) {
+                fil_result = fil_result.filter(function (p) {
+                    var foundLeader = p.setting.steps.findIndex(function (c) {
+                        return c.leader.user_name === _this.filterBySL;
+                    });
+
+                    return foundLeader !== -1;
+                });
+            }
 
             return fil_result;
         }

@@ -91,7 +91,13 @@ export default {
             }
 
             if (this.filterBySL) {
-                
+                fil_result = fil_result.filter((p) => {
+                    let foundLeader = p.setting.steps.findIndex((c) =>{
+                        return c.leader.user_name === this.filterBySL
+                    })
+
+                    return foundLeader !== -1
+                });
             }
 
             return fil_result;
