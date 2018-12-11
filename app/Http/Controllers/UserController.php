@@ -20,19 +20,50 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-
         $user = $user->where([
-            ['company',Auth::user()->company],
-            ['role','employe']
+                ['company',Auth::user()->company],
+                ['role','employe']
             ])->paginate(10);
         return UserResource::collection($user);
-
     }
 
     public function get_so(intDiv $div)
     {
         $div = $div->all();
         return DivResource::collection($div);
+    }
+
+    public function setRole (User $user,Request $request,$id)
+    {
+        if (Auth::user()->role == 'admin') {
+            $user = $user->where('id',$id)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User with id ' . $id . ' not found'
+                ],401);
+            }
+            
+            $set = $user->update([
+                'PM' => $request->pm,
+                'SL' => $request->sl
+            ]);
+
+            if ($set) {
+                return response()->json([
+                    'messsage' => 'data ka update'
+                ],201);
+            } else {
+                return response()->json([
+                    'messsage' => 'data teu ka update'
+                ],500);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Teu bisa!'
+            ],500);
+        }
+        
     }
 
     /**

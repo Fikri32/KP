@@ -29,7 +29,10 @@ Route::middleware('auth:api')->group(function(){
     Route::put('setting/update/{id}','SettingController@update');
     Route::delete('setting/delete/{id}','SettingController@destroy');
 
-    //---- setting set per prject ----//
+    //---- Setting By ID ----//
+    Route::get('setting/{id}','SettingController@setting_by_id')->name('setting_by_id');
+
+    //---- setting set per-project ----//
     Route::put('project/set_setting/{id}','ProjectController@set_setting');
 
     //---- team setup Setting ----//
@@ -48,6 +51,12 @@ Route::middleware('auth:api')->group(function(){
     Route::get('taskdata/{id}','TasksController@get_task');
     Route::post('task/store','TasksController@store');
     Route::put('task/update/{id}','TasksController@update');
+
+    #basik task data SL
+    Route::get('taskdata/sl/basic/{id}','TasksController@sl_basic_data');
+
+    #task data for SL
+    Route::get('taskdata/sl/{id}','TasksController@task_sl');
 
     #route task status 
     Route::put('task/status/{id}','TasksController@statusTask');
@@ -71,8 +80,6 @@ Route::middleware('auth:api')->group(function(){
     Route::put('profile/update/{id}','Profile@update');
     Route::put('profile/photo/{id}','Profile@image_store');
     Route::delete('profile/delete/{id}','Profile@destroy');
-
-
 });
 
 Route::middleware('auth:oauth')->group(function(){

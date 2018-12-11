@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Validator;
 use Auth;
 use App\Project;
 use App\Settings;
+use App\Steps;
 use App\Http\Resources\Res_Setting;
+use App\Http\Resources\roleUser;
 use App\Http\Resources\project as ProjectResource;
 
 
@@ -23,6 +25,8 @@ class ProjectController extends Controller
         $proj = $proj->where('company_id',Auth::user()->company)->paginate(10);
         return ProjectResource::collection($proj);
     }
+
+ 
 
     /**
      * Store a newly created resource in storage.
@@ -71,7 +75,6 @@ class ProjectController extends Controller
 
     public function set_setting($id,Project $proj,Request $request)
     {
-        
         if (Auth::user()->role == 'admin') {
             $proj = $proj->where('id',$id)->first();
 
@@ -107,8 +110,6 @@ class ProjectController extends Controller
     public function set_structure(Project_Structures $struct,Request $request)
     {
         if (Auth::user()->role == 'admin') {
-
-            
             $struct = $struct -> create([
                 'step' => $request->step,
                 'project' => $request->id_project,
@@ -140,7 +141,6 @@ class ProjectController extends Controller
      */
     public function show($id,Project $proj)
     {
-        
         $proj = $proj->where('id',$id)->first();
  
         if ($proj) {

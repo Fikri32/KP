@@ -23,7 +23,9 @@ class User extends JsonResource
             'user_pic' => $this->image,
             'user_registered' => $this->created_at->diffForHumans(),
             'jobs' => $this->Divisi,
-            'profile' => Res_profile::make($this->Profile)
+            'profile' => Res_profile::make($this->Profile),
+            'pm' => $this->PM,
+            'sl' => $this->SL
         ];
     }
 }

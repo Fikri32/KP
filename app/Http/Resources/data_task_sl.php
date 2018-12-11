@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class data_task_sl extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            'task_id'           => $this->id,
+            'task_name'         => $this->name,
+            'task_status'       => $this->status,
+            'task_finish'       => $this->finished_at,
+            'task_deadline'     => $this->deadline,
+            'task_projid'       => $this->project,
+            'task_steps'        => Res_Steps::make($this->Steps),
+            'task_handler'      => User::make($this->User),
+        ];
+    }
+}

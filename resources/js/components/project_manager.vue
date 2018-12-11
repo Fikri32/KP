@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <div class="page-content">
             <div class="row">
@@ -12,7 +13,8 @@
                                     <img class="navbar-brand-logo" alt="...">
                                 </span>
                                 <h4 class="card-title project-title">
-                                    Nama Proyek : {{singleProject.project_name}} 
+                                    Nama Proyek : {{singleProject.project_name}}<br>
+                                    
                                     <hr>
                                 </h4>
                             </a>
@@ -21,7 +23,7 @@
                         <div class="panel-collapse collapse" id="description" aria-labelledby="description" role="tabpanel">
                             <div class="panel-body">
                                 <h4 class="card-title">Description</h4>
-                                {{singleProject.project_desc}}
+                                <p>{{singleProject.project_desc}}</p>
                                 <hr>
                             </div>
                         </div>
@@ -52,6 +54,7 @@
                                                 <tbody>
                                                     <tr v-for="(tasks, index) in filtering " :key="index">
                                                     <td>
+                                                        <!-- Leader Task -->
                                                         <div class="media m-t-0">
                                                             <div v-if="tasks.task_steps.leader">
                                                                 <div class="media-left text-middle">
@@ -79,11 +82,10 @@
                                                                     <span>{{tasks.task_steps.name}}</span>
                                                                 </div>
                                                             </div>
-                                                           
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <!-- <div v-for="(tasks, index) in tasks " :key="index" > -->
+                                                        <!-- Handler Task -->
                                                         <div class="media m-t-0">
                                                             <div class="media-left text-middle">
                                                                 <div v-if="tasks.task_handler.user_pic">
@@ -95,18 +97,15 @@
                                                                     <a href="javascript:void(0)" class="avatar">
                                                                         <img :src="'http://localhost:8000/' + 'defaultpic.jpg'">
                                                                     </a>
-                                                                </div>
-                                                                                            
+                                                                </div>                     
                                                             </div>
                                                             <div class="media-body">
                                                                 <h4 class="media-heading font-size-14">{{tasks.task_handler.user_name}}</h4>
                                                                 <span>{{tasks.task_name}}</span>
                                                             </div>
                                                         </div>
-                                                        <!-- </div> -->
                                                     </td>
                                                     <td>{{tasks.task_deadline}}</td>
-                                                    
                                                     </tr>
                                                 </tbody>
                                                 </table>
@@ -129,7 +128,7 @@
                                                                 Handler 
                                                             </th>
                                                             <th>
-                                                                    Status 
+                                                                Status 
                                                             </th>
                                                             <th>Deadline</th>
                                                             <th>Tgl Selesai</th>
@@ -529,9 +528,12 @@ export default {
             singleProject:{},
             steps:{},
             tasks:{},
+            id_sett:0,
             user:[],
-            api_key:this.token,
+            role:'',
+            api_key: this.token,
             set_id : this.id,
+            unames : this.uname,
 
             filterBy:'',
 
@@ -563,6 +565,8 @@ export default {
             step_post :{
                 id_setting:this.id,
             },
+
+
         }
     },
 
@@ -581,7 +585,7 @@ export default {
         }
     },
 
-    props:['token','id'],
+    props:['token','id','uname'],
 
     created(){
         this.projdata();
@@ -622,7 +626,6 @@ export default {
             axios.get('/api/project/' + this.id,{headers:head_axios})
             .then(function(response){
                 vm.singleProject = response.data;
-                console.log(response);
             })
             .catch(function(error){
                 vm.singleProject = 'Upss...' + error;
@@ -800,10 +803,6 @@ export default {
             })
             .catch(err => console.log(err))
         },
-
-        editLeaderSteps(params){
-        
-        },
         //----------------------------------
 
         //Others Operations
@@ -811,6 +810,7 @@ export default {
             let filterBy = filter_params;
             this.filterBy = filterBy;
         },
+        //----------------------------------
     }
 }
 </script>

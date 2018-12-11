@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Settings;
+use App\Http\Resources\setting_by_id;
 use App\Http\Resources\Res_Setting;
 
 class SettingController extends Controller
@@ -19,7 +20,6 @@ class SettingController extends Controller
         $setting = $setting->where('company',Auth::user()->company)->get();
         return Res_Setting::collection($setting);
     }
-
 
     /**
      * Store a newly created resource in storage.

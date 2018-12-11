@@ -43,7 +43,10 @@ Vue.component('client-company',require('./components/admin/client.vue'));
 
 //employe
 Vue.component('project-staff', require('./components/project_staff.vue'));
-Vue.component('project-manager',require('./components/project_manager.vue'))
+Vue.component('project-manager',require('./components/project_manager.vue'));
+Vue.component('project-sl',require('./components/stepsLeader.vue'));
+Vue.component('staff-page',require('./components/staff.vue'));
+
 
 const app = new Vue({
     el: '#app'

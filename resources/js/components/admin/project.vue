@@ -82,8 +82,7 @@
 
                                             <div class="col-md-10 col-sm-6 col-xs-12">
                                                 <select v-model="project_post.uid" class="form-control">
-                                                    <option v-for="userlist in userlist" v-bind:key="userlist.user_id" :value="userlist.user_id">{{userlist.user_name}}</option>
-                                                
+                                                    <option v-for="userlist in userlist" v-bind:key="userlist.user_id" :value="userlist.user_id">{{userlist.user_name}}-{{userlist.jobs.jabatan}}</option>
                                                 </select>
                                             </div>
                                         </div>

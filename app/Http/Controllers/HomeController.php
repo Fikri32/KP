@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Project;
+use App\Steps;
 use App\Http\Resources\project as ProjectResource;
 
 class HomeController extends Controller
@@ -36,6 +38,7 @@ class HomeController extends Controller
 
     //admin Area
     public function project(){
+
         if (Auth::user()->role == 'admin') {
             return view('Admin/project');
         } else {
@@ -93,13 +96,23 @@ class HomeController extends Controller
     }
 
     //Staff Area
-    public function action_page($id)
+    public function action_page($project_id)
     {
-        if (Auth::user()->role == 'employe') {
-            $get_id = $id;
-    
+        $user_id = Auth::user()->id;
+        $get_id = $project_id;
+        $project_manager = Project::where('id','=',$project_id)->where('user_id','=',$user_id)->first();
+        $steps_leader =  DB::table('project')->leftJoin('settings','project.settings','=','settings.id')
+                         ->leftJoin('steps','steps.setting_id','=','settings.id')
+                         ->where('project.id','=',$project_id)
+                         ->where('steps.leader','=',$user_id)
+                         ->first();
+        
+        if (($project_manager != null) && ($steps_leader == null)) {
             return view('Employe/manager')->with('snd_id',$get_id);
+        } elseif (($steps_leader != null) && ($project_manager == null)) {
+            return view('Employe/StepsLeader')->with('snd_id',$get_id);
+        }else {
+            return view('Employe/tm')->with('snd_id',$get_id);
         }
- 
     }
 }
