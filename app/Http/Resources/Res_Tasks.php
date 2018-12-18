@@ -15,6 +15,7 @@ class Res_Tasks extends JsonResource
     public function toArray($request)
     {
         return [
+            // 'project'           => project::make($this->Project),
             'task_id'           => $this->id,
             'task_name'         => $this->name,
             'task_status'       => $this->status,
@@ -23,6 +24,7 @@ class Res_Tasks extends JsonResource
             'task_projid'       => $this->project,
             'task_steps'        => Res_Steps::make($this->Steps),
             'task_handler'      => User::make($this->User),
+            'task_document'     => Res_documents::collection($this->documents)
         ];
     }
 }

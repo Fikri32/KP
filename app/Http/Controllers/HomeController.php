@@ -112,7 +112,7 @@ class HomeController extends Controller
         } elseif (($steps_leader != null) && ($project_manager == null)) {
             return view('Employe/StepsLeader')->with('snd_id',$get_id);
         }else {
-            return view('Employe/tm')->with('snd_id',$get_id);
+            return view('Employe/staff')->with('snd_id',$get_id);
         }
     }
 }

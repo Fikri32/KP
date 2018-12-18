@@ -47,6 +47,7 @@ Route::middleware('auth:api')->group(function(){
     Route::put('steps/leader','StepsController@leaderSteps');
 
     //---- task Set ----//
+    Route::get('task/','TasksController@get_task_global');
     Route::get('task/{id}','TasksController@index');
     Route::get('taskdata/{id}','TasksController@get_task');
     Route::post('task/store','TasksController@store');
@@ -54,9 +55,11 @@ Route::middleware('auth:api')->group(function(){
 
     #basik task data SL
     Route::get('taskdata/sl/basic/{id}','TasksController@sl_basic_data');
+    
 
     #task data for SL
     Route::get('taskdata/sl/{id}','TasksController@task_sl');
+    Route::get('taskdata/staff/{id}','TasksController@task_tm');
 
     #route task status 
     Route::put('task/status/{id}','TasksController@statusTask');
@@ -80,6 +83,11 @@ Route::middleware('auth:api')->group(function(){
     Route::put('profile/update/{id}','Profile@update');
     Route::put('profile/photo/{id}','Profile@image_store');
     Route::delete('profile/delete/{id}','Profile@destroy');
+
+     //Document
+     Route::get('document/{id}','DocumentsController@index');
+     Route::get('docdata/{id}','DocumentsController@get_doc');
+     Route::post('document/store','DocumentsController@store');
 });
 
 Route::middleware('auth:oauth')->group(function(){

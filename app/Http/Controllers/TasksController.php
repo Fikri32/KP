@@ -33,8 +33,17 @@ class TasksController extends Controller
         return Res_Tasks::collection($task);
     }
 
-    public function task_sl(Steps $step,Tasks $task,$id)
+    public function get_task_global(Tasks $task)
     {
+        $task = $task->get();
+        
+        return Res_Tasks::collection($task);
+    }
+
+    public function task_sl(Steps $step,Tasks $task,$id,Project $proj)
+    {
+       
+
         $step = $step->where('leader',$id)->value('id');
 
         $task = $task->where('Steps_id',$step)->get();

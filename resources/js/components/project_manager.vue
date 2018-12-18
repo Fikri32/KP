@@ -43,7 +43,7 @@
                                         <div  class="tab-pane active" id="perstep" role="tabpanel">
                                             <div  class="card card-inverse">
                                             <div class="card-block">
-                                                <table class="table">
+                                               <table class="table">
                                                 <thead>
                                                     <tr>
                                                     <th>Leader</th>
@@ -52,9 +52,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr v-for="(tasks, index) in filtering " :key="index">
+                                                    <tr v-for="tasks  in filtering " :key="tasks.task_id">
                                                     <td>
-                                                        <!-- Leader Task -->
                                                         <div class="media m-t-0">
                                                             <div v-if="tasks.task_steps.leader">
                                                                 <div class="media-left text-middle">
@@ -82,10 +81,12 @@
                                                                     <span>{{tasks.task_steps.name}}</span>
                                                                 </div>
                                                             </div>
+                                                           
                                                         </div>
                                                     </td>
+
                                                     <td>
-                                                        <!-- Handler Task -->
+                                                        
                                                         <div class="media m-t-0">
                                                             <div class="media-left text-middle">
                                                                 <div v-if="tasks.task_handler.user_pic">
@@ -97,13 +98,15 @@
                                                                     <a href="javascript:void(0)" class="avatar">
                                                                         <img :src="'http://localhost:8000/' + 'defaultpic.jpg'">
                                                                     </a>
-                                                                </div>                     
+                                                                </div>
+                                                                                            
                                                             </div>
                                                             <div class="media-body">
                                                                 <h4 class="media-heading font-size-14">{{tasks.task_handler.user_name}}</h4>
                                                                 <span>{{tasks.task_name}}</span>
                                                             </div>
                                                         </div>
+                                                       
                                                     </td>
                                                     <td>{{tasks.task_deadline}}</td>
                                                     </tr>
@@ -120,7 +123,6 @@
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                            <th>#</th>
                                                             <th>    
                                                                 Task 
                                                             </th>
@@ -132,19 +134,13 @@
                                                             </th>
                                                             <th>Deadline</th>
                                                             <th>Tgl Selesai</th>
-                                                            <th>File</th>
+                                                           
                                                             <th class="text-nowrap">Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             
                                                             <tr v-for="(tasks, index) in filtering " :key="index">
-                                                            <td>
-                                                                <span class="checkbox-custom checkbox-primary">
-                                                                <input class="selectable-item" type="checkbox" id="row-619" value="619">
-                                                                <label for="row-619"></label>
-                                                                </span>
-                                                            </td>
                                                             <td>
                                                                 <div class="table-content">
                                                                 <p class="blue-grey-500"> {{tasks.task_name}}</p>
@@ -164,9 +160,7 @@
                                                             <td>
                                                                 {{tasks.task_finish}}
                                                             </td>
-                                                            <td class="work-status">
-                                                                <button type="button" class="btn btn-primary" data-target="#file-download" data-toggle="modal">SEE DETAILS</button>
-                                                            </td>
+                                                            
                                                             <td class="text-nowrap">
                                                                 <button type="button" @click="selectTask(tasks)" data-toggle="modal" data-target="#statustask" class="btn btn-icon btn-primary btn-round waves-effect"><i class="icon md-assignment" aria-hidden="true"></i></button>
                                                                 <button type="button" @click="editTask(tasks)" data-toggle="modal" data-target="#edittask" class="btn btn-icon btn-warning btn-round waves-effect"><i class="icon md-edit" aria-hidden="true"></i></button>
@@ -183,9 +177,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div>
-                                                        <button type="button" class="btn btn-success" data-toggle="button">
-                                                        <span class="text">SAVE</span>
-                                                        </button>
+                                                         <button type="button"  class="btn btn-primary" data-target="#file-download" data-toggle="modal">DOKUMENTASI</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,11 +207,7 @@
                                 Akhir 
                             </p>
                                 
-                            <div class="progress progress-lg">
-                                <div class="progress-bar progress-bar-indicating active" style="width: 60%;" role="progressbar">
-                                60%
-                                </div>
-                            </div>
+                            
                             <hr>
                         </div>
                         <!-- Proyek Manager -->
@@ -235,7 +223,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading font-size-16">{{singleProject.userpm.user_name}}</h4>
-                                    <span>{{singleProject.userpm.jobs.jabatan}}</span>
+                                    
                                 </div>
                             </div>
                             <hr>
@@ -300,6 +288,46 @@
                                 </div>
                             </div>
                             <!-- End Add Task Form -->
+
+                            <!-- download Document Form -->
+                            <div id="file-download" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                        </button>
+                                        <h4 class="modal-title" id="classModalLabel">
+                                            Download Document
+                                            </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div v-for="lv2 in tasks" :key="lv2.task_id">
+                                                 <div v-for="item in lv2.task_document" :key="item.id">
+                                                    <div class="col-sm-6">
+                                                        <div class="card-text-center">
+                                                        <div class="card-body" >
+                                                        <center>
+                                                            <h5 class="card-title">{{item.document_name}}</h5>
+                                                            <p class="card-text">{{item.deskripsi}}</p>
+                                                            <a :href="'/document/download/' + item.document_id" class="btn btn-icon btn-primary btn-round waves-effect">DOWNLOAD  </a>
+                                                        </center>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                                </div>
+
+
+                            <!-- End download Document Task Form -->
+
 
                             <!-- Edit Task Form -->
                             <div class="modal fade" id="edittask" aria-hidden="true" aria-labelledby="addLabelForm"
@@ -566,6 +594,12 @@ export default {
                 id_setting:this.id,
             },
 
+            document_post:{
+                nama_document:'',
+                url:'',
+                task: this.id,
+            },
+
 
         }
     },
@@ -592,6 +626,8 @@ export default {
         this.fetchSinge();
         this.taskdata();
         this.fetchUser();
+        this.fetchStep();
+        
     },
 
     methods:{
@@ -649,6 +685,8 @@ export default {
             )
             .catch(error => console.log(error));
         },
+
+        
         
         taskdata(){
             fetch(`/api/taskdata/${this.set_id}`,{
@@ -765,6 +803,12 @@ export default {
             this.task_post.finish = params.task_finish;
         },
 
+          selectdoc(params){
+            this.task_post.step = params.task_steps.id;
+            this.task_post.handler = params.task_handler.user_id;
+            // this.document_post.task = params.task_id;
+            // this.document_post.nama_document = params.task_document.document_name;
+          },
         statusTaskreq(params){
             fetch(`/api/task/status/${params}`,{
                 method:'put',
@@ -811,6 +855,7 @@ export default {
             this.filterBy = filterBy;
         },
         //----------------------------------
+        
     }
 }
 </script>

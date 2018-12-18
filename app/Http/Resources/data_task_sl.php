@@ -23,6 +23,7 @@ class data_task_sl extends JsonResource
             'task_projid'       => $this->project,
             'task_steps'        => Res_Steps::make($this->Steps),
             'task_handler'      => User::make($this->User),
+            'task_document'     => Res_documents::collection($this->documents)
         ];
     }
 }

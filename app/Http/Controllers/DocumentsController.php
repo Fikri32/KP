@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Response;
+use DB;
+use App\documents;
+use App\Http\Resources\Res_documents;
+use App\Tasks;
+use App\Http\Resources\Res_Tasks as TaskResource;
+
 
 class DocumentsController extends Controller
 {
@@ -11,9 +19,16 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id,Tasks $task)
     {
-        //
+        $task = $task->where('id',$id)->get();
+        return Res_Tasks::collection($task);
+    }
+
+    public function get_doc($id,documents $doc)
+    {
+        $doc = $doc->where('task',$id)->get();
+        return Res_documents::collection($doc);
     }
 
     /**
@@ -32,10 +47,49 @@ class DocumentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(documents $doc,Request $request)
     {
-        //
+        if ($request->url) {
+            $exploded = explode(',',$request->url);
+            $decoded = base64_decode($exploded[1]);
+
+            if (str_contains($exploded[0],'docx')) {
+                $extension = 'xlx`x';
+            } else {
+                $extension = 'pdf';
+            }
+            
+            $filename = str_random().'.'.$extension;
+
+            $path = public_path().'/'.$filename;
+
+            file_put_contents($path,$decoded);
+        } else {
+            $filename = '';
+        }
+        
+        
+            $doc = $doc->create([
+                'url' => $filename,
+                'nama_document' => $request->nama_document,
+                'task'  => $request->task,
+                'deskripsi'  => $request->deskripsi,
+            ]);
+
+            if (!$doc) {
+                return response()->json([
+                    'success'   => false,
+                    'message'   => 'data could not added'   
+                ],500);
+            } else {
+                $response = new Res_documents($doc);
+                return response()->json($response,201);
+            }
+
+       
+        
     }
+
 
     /**
      * Display the specified resource.
@@ -43,10 +97,23 @@ class DocumentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function download($id,documents $doc,Request $request)
     {
-        //
-    }
+        
+        $doc = $doc->where('id','=',$id);
+        $filename=$doc->value(
+            'url' 
+        );
+        
+        $path = public_path().'/'. $filename;
+           
+                        
+        return Response::download($path);
+        }
+
+      
+        // return Response::download($path,$doc,$headers);
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -66,9 +133,10 @@ class DocumentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+       
+       
     }
 
     /**

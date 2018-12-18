@@ -129,7 +129,7 @@ class StepsController extends Controller
 
     public function leaderSteps(Steps $step,Request $request)
     {
-        if (Auth::user()->role == 'admin') {
+        
             $step = $step->where('id',$request->step)->first();
 
             if (!$step) {
@@ -151,10 +151,10 @@ class StepsController extends Controller
                     'message' => 'Leader tidak berhasil tersimpan'
                 ],500);
             }
-        } else {
-            return response()->json([
-                'mesage'=>'Anda tidak memiliki izin untuk melakukan aksi ini.'
-            ]);
-        }
+        // } else {
+        //     return response()->json([
+        //         'mesage'=>'Anda tidak memiliki izin untuk melakukan aksi ini.'
+        //     ]);
+        // }
     }
 }

@@ -83,9 +83,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>status</th>
                                         <th>Name</th>
-                                        <th>File</th>
+                                        <th>Status</th>
+                                        
                                         <th class="text-nowrap">Action</th>
                                     </tr>
                                 </thead>
@@ -94,41 +94,30 @@
                                         <td>
                                             {{item.task_id}}
                                         </td>
-                                        <td>
-                                            <span class="checkbox-custom checkbox-primary">
-                                            <input class="selectable-item" type="checkbox" id="row-619" value="619">
-                                            <label for="row-619"></label>
-                                            </span>
-                                        </td>
+                                    
                                         <td class="name">
                                             <div class="table-content">
                                             <p class="blue-grey-500">{{item.task_name}}</p>
                                             </div>
                                         </td>
-                                        <td class="work-status">
-                                            <button type="button" class="btn btn-primary" data-target="#file-download" data-toggle="modal">SEE DETAILS</button>
+                                        <td>
+                                            <div v-if="item.task_status == null">
+                                                Belum Ditetapkan
+                                            </div>
+                                            <div v-else>
+                                                {{item.task_status}}
+                                            </div>
                                         </td>
+                                        
                                         <td class="text-nowrap">
-                                            <button type="button" @click="edit(item)" class="btn btn-sm btn-icon btn-flat btn-default" data-target="#editTask" data-toggle="modal">
-                                            <i class="icon md-wrench" aria-hidden="true"></i>
-                                            </button>
+                                             <button type="button" @click="edit(item)" data-toggle="modal" data-target="#editTask" class="btn btn-icon btn-warning btn-round waves-effect"><i class="icon md-edit" aria-hidden="true"></i></button>
                                          
-                                            <button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip"
-                                            data-original-title="Massage">
-                                            <i class="icon md-comment" aria-hidden="true"></i>
-                                            </button>
-
-                                            <button type="button" @click="delete_task(item.task_id)" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip"
-                                            data-original-title="Delete">
-                                            <i class="icon md-close" aria-hidden="true"></i>
-                                            </button>
+                                            <button type="button" @click="delete_task(item.task_id)" class="btn btn-icon btn-danger btn-round waves-effect"><i class="icon md-delete" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                                 </table>
-                                <button type="button" class="btn btn-success" data-toggle="button">
-                                <span class="text">SAVE</span>
-                                </button>
+                                <button type="button"  class="btn btn-primary" data-target="#file-download" data-toggle="modal">DOKUMENTASI</button>
                             </div>
                             <!-- Add Task -->
                             <div class="modal fade modal-fade-in-scale-up" id="tambahTask" aria-hidden="true"
@@ -170,6 +159,47 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- download Document Form -->
+                            <div id="file-download" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                        </button>
+                                        <h4 class="modal-title" id="classModalLabel">
+                                            Download Document
+                                            </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div v-for="lv2 in task" :key="lv2.task_id">
+                                                 <div v-for="item in lv2.task_document" :key="item.id">
+                                        <div class="col-sm-6">
+                                            <div class="card text-center" style="width: 18rem;">
+                                            <div class="card-body" >
+                                               <center>
+                                                <h4 class="card-title">Dokumen : {{item.document_name}}</h4>
+                                                <p class="card-text">{{item.deskripsi}}</p>
+                                                <a :href="'/document/download/' + item.document_id" class="btn btn-icon btn-primary btn-round waves-effect">DOWNLOAD  </a>
+                                                </center>
+                                               
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                                </div>
+
+
+                            <!-- End download Document Task Form -->
+
                             <!-- Update Task -->
                             <div class="modal fade modal-fade-in-scale-up" id="editTask" aria-hidden="true"
                             aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
@@ -208,28 +238,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- file Download -->
-                            <div class="modal fade modal-fade-in-scale-up" id="file-download" aria-hidden="true" aria-labelledby="exampleOptionalLarge" role="dialog" tabindex="-1">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                    <h4 class="modal-title" id="exampleOptionalLarge">File Download</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="list-group-bordered">
-                                    <a class="list-group-item" href="javascript:void(0)">Document 1</a>
-                                    <a class="list-group-item" href="javascript:void(0)">document 2</a>
-                                    <a class="list-group-item" href="javascript:void(0)">Page 1</a>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                                </div>
-                            </div>
-                            </div>
+            
                         </div>
                         </div>
                     </div>
@@ -238,18 +247,13 @@
                 <div class="card">
                     <div class="card-block">
                     <p class="m-b-10">
-                        <span class="pull-xs-right p-l-10">20 Agustus 2018</span>
-                        Start Date
+                        <span class="pull-xs-right p-l-10">{{project.project_Date}}</span>
+                        Tanggal Mulai
                     </p>
                     <p>
-                        <span class="pull-xs-right p-l-10">20 November 2018 </span>
-                        End Date
+                        <span class="pull-xs-right p-l-10">{{project.project_deadline}}</span>
+                       Akhir
                     </p>
-                    <div class="progress progress-lg">
-                        <div class="progress-bar progress-bar-indicating active" style="width: 60%;" role="progressbar">
-                        60%
-                        </div>
-                    </div>
                     </div>
                     <div class="card-block">
                         <h4 class="project-option-title">Manager Proyek</h4>
@@ -261,7 +265,7 @@
                             </div>
                             <div class="media-body">
                             <h4 class="media-heading font-size-16">{{project.userpm.user_name}}</h4>
-                            <span>{{project.userpm.jobs.jabatan}}</span>
+                            
                             </div>
                         </div>
                     </div>
@@ -277,7 +281,7 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading font-size-14">{{item.task_handler.user_name}}</h4>
-                                <span>{{item.task_handler.jobs.jabatan}}</span>
+                                
                             </div>
                         </div>
                     </div>

@@ -28,6 +28,7 @@ Vue.component('side-menu',require('./components/admin/sidemenu.vue'));
 Vue.component('foot-vues',require('./components/footer.vue'));
 Vue.component('dashboard-admin',require('./components/admin/admin_dashboard.vue'));
 
+
 //profile user page (Admi & employe)
 Vue.component('prof-admin',require('./components/profile/admin_prof.vue'));
 
@@ -42,6 +43,7 @@ Vue.component('payment',require('./components/admin/payments.vue'));
 Vue.component('client-company',require('./components/admin/client.vue'));
 
 //employe
+Vue.component('dashboard-staff',require('./components/staff_dashboard.vue'));
 Vue.component('project-staff', require('./components/project_staff.vue'));
 Vue.component('project-manager',require('./components/project_manager.vue'));
 Vue.component('project-sl',require('./components/stepsLeader.vue'));

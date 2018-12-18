@@ -32,6 +32,8 @@ Route::middleware(['web'])->group(function(){
     Route::get('/proflie/admin/{id}','HomeController@ad_profile')->name('admin_prof');
     //staff area
     Route::get('project/{id}','HomeController@action_page')->name('action');
+    Route::get('/document/download/{id}','DocumentsController@download');
+
 });
 
 

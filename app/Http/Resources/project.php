@@ -27,6 +27,7 @@ class project extends JsonResource
             'userpm'            => User::make($this->User),
             'setting'           => Res_setting::make($this->Settings),
             'pembayaran'        => Res_Payments::collection($this->Payments),
+            'task'              => Res_Tasks ::collection($this->Tasks)
         ];
     }
 }

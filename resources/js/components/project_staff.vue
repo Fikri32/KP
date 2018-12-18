@@ -2,7 +2,7 @@
     <div>  
         <div class="page">
             <div class="page-header page-header-bordered page-header-tabs">
-                <h1 class="page-title">Project Debug step leader :: {{filterBySL}}</h1>
+                <h1 class="page-title">Project Debug Staff :: {{filterBystaf}}</h1>
                 <div class="page-header-actions">
                     <div class="input-search">
                         <input v-model="filter" type="text" class="form-control round" placeholder="cari Project...">
@@ -24,7 +24,7 @@
                         <a @click="SLfilterEvent(uname)" class="nav-link" aria-expanded="false" role="tab">Step Leader </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link"  aria-expanded="false" role="tab">Officer </a>
+                        <a @click="StaffilterEvent(uname)" class="nav-link" aria-expanded="false" role="tab">Staff </a>
                     </li>
                 </ul>
             </div>
@@ -55,14 +55,17 @@ export default {
     data(){
         return{
             project:[],
+            tasks:[],
 
             api_key:this.token,
+          
             
             filter:'',//cari atau filter berdasarkan apapun yang bisa di filter 
 
             filterByPM:'',//filter jika user menjadi project leader/manager,atau steps leader
 
             filterBySL:'',//filter jika user adalah SL(Steps Leader)
+            filterBystaf:'',
         }
     },
 
@@ -71,18 +74,21 @@ export default {
     created(){
         //-sa acan nampilkeun data fetch heula. hasil fetch simpen di object array "project:[]"
         //ngambil data dari database (fetch)
-        this.fetchProject(); // di inisialiasi di dieu, di coding di jero methods' lain method nya
+       // di inisialiasi di dieu, di coding di jero methods' lain method nya
+       this.fetchProject(); 
+       this.taskdata();
     },
 
     computed:{
         Filtering : function(){
             let fil_result = this.project;
+            let fil_result_task = this.tasks
       
-            if (this.filter) {
-                fil_result = fil_result.filter( item => 
-                    item.project_name.includes(this.filter)
-                );
-            }
+            // if (this.filter) {
+            //     fil_result = fil_result.filter( item => 
+            //         item.project_name.includes(this.filter)
+            //     );
+            // }
 
             if (this.filterByPM) {
                 fil_result = fil_result.filter( item =>
@@ -100,7 +106,21 @@ export default {
                 });
             }
 
-            return fil_result;
+              if (this.filterBystaf) {
+                fil_result = fil_result.filter((p) => {
+                    let foundHandler = p.task.findIndex((c) => {
+                        return c.task_handler.user_name === this.filterBystaf
+                    })
+                    return foundHandler !== -1
+                });
+            }
+            
+            
+
+                return fil_result;
+            
+
+            
         }
     },
 
@@ -123,24 +143,53 @@ export default {
             .catch(err => console.log(err));
         },
 
+       taskdata(){
+            fetch('api/task',{
+                method:'get',
+                headers:{
+                    'Accept' : 'application/json',
+                    'Authorization': 'Bearer ' + this.api_key,
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.tasks = res.data
+            })
+            .catch(err=>console.log(err))
+            
+        },
         PMfilterevent(byWhat){
             //filter jika user adalah pm
             let filterBy = byWhat;
             this.filterByPM = filterBy;
             //kosongkan variable filter lain(SL)
             this.filterBySL = '';
+            this.filterBystaf = '';
         },
 
         SLfilterEvent(params){
             let filterBySL = params;
             this.filterBySL = filterBySL;
             //kosongkan varable filter lain(PM)
-            this.filterByPM = '';   
+            this.filterByPM = '';  
+            this.filterBystaf = ''; 
         },
+
+         StaffilterEvent(params){
+            let filterBystaf = params;
+            this.filterBystaf = filterBystaf;
+            //kosongkan varable filter lain(PM)
+            this.filterByPM = '';
+            this.filterBySL = '';   
+        },
+
+        
 
         defaultfilter(){
             this.filterByPM ='';
             this.filterBySL ='';
+            this.filterBystaf = '';
+            
         }
     },
 }

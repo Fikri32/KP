@@ -32,7 +32,7 @@ class Project extends Model
 
     public function Tasks()
     {
-        return $this->belongsTo('App\Tasks','project','id');
+        return $this->hasMany('App\Tasks','project','id');
     }
 
     public function Client()

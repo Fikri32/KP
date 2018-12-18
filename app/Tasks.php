@@ -28,12 +28,18 @@ class Tasks extends Model
 
     public function Project()
     {
-        return $this->hasOne('App\Project','id','project');
+        return $this->belongsTo('App\Project','id','project');
     }
 
     public function User()
     {
         return $this->hasOne('App\User','id','handler');
     }
+
+    public function documents()
+    {
+        return $this->hasMany('App\documents','task','id');
+    }
+
 
 }
