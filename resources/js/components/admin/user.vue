@@ -148,54 +148,6 @@
                     </div>
                 </div>
                 <!-- end row edit user -->
-
-                <!-- Modal karyawan -->
-                <div class="modal fade setRole" tabindex="-1" role="dialog" aria-labelledby="setRole" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title" id="karyawan">Karyawan</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form @submit.prevent="storeuser" class="form-horizontal form-label-left" novalidate>
-                                    Nama:{{user_post.user_name}}<br>
-                                    ID:{{user_post.user_id}}<br>
-
-                                    pm:{{Main_role.pm}}<br>
-                                    sl:{{Main_role.sl}}<br>
-                                    
-                                    {{preinput(Main_role.init)}}<br>
-                                    <div class="item form-group">
-                                    <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Role</h6>
-                                        <div class="col-md-10 col-sm-6 col-xs-12">
-                                            <select v-model="Main_role.init" class="form-control">
-                                                <option :value="1"> Project Manager </option>
-                                                <option :value="2"> Steps Leader </option>
-                                                <option :value="3"> Double Role </option>
-                                                <option :value="4"> Default </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                               
-                                    <div class="ln_solid"></div>
-                                    <div class="modal-footer">
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-3">
-                                            <button type="reset" class="btn btn-primary">Reset</button>
-                                            <button type="submit" class="btn btn-success">Save</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end row modal karyawan -->
-
                 <div class="form-group form-material">
                     <button class="btn btn-primary waves-effect waves-light btn-sm" data-toggle="modal" data-target=".createuser"><i class="icon md-plus" aria-hidden="true"></i>Karyawan</button>
                 </div>
@@ -207,7 +159,7 @@
                             <th  @click="setSort('nip')">NIP <i class="icon wb-sort-vertical" aria-hidden="true"></i></th>
                             <th  @click="setSort('email')">E-Mail <i class="icon wb-sort-vertical" aria-hidden="true"></i></th>
                             <th  @click="setSort('posisi')">Posisi</th>
-                            <th >Main Role</th>
+
                             <th >Action</th>
                         </tr>
                     </thead>
@@ -233,19 +185,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div v-if="user.pm == 1">
-                                    Project Manager
-                                </div>
-                                <div v-else-if="user.sl == 1">
-                                    Steps Leader
-                                </div>
-                                <div v-else-if="(user.pm == null) && (user.sl == null)">
-                                    Tidak Ada
-                                </div>
-                            </td>
-                            <td>
                                 <div class="btn-group" aria-label="basic example" role="group">
-                                    <button type="button" @click="edit(user)" class="btn btn-sm btn-primary waves-effect" data-toggle="modal" data-target=".setRole"><i class="icon wb-edit" aria-hidden="true"></i> Role</button>
                                     <button type="button" @click="deleteuser(user.user_id)" class="btn btn-sm btn-primary waves-effect" id="confirm" data-plugin="alertify" data-type="confirm" data-confirm-title="Apa Anda yakin?" data-success-message="Data Terhapus" data-error-message="Aksi di Batalkan"><i class="icon wb-trash" aria-hidden="true"></i>Delete</button>
                                     <button type="button" @click="edit(user)" class="btn btn-sm btn-primary waves-effect" data-toggle="modal" data-target=".edituser"><i class="icon wb-edit" aria-hidden="true"></i> Edit</button>
                                 </div>
@@ -307,12 +247,7 @@ export default {
                 sl:'',
             },
 
-            Main_role:{
-                pm:'',
-                sl:'',
-                default:'',
-                init:'',
-            },
+           
 
             pagination:{},
 
@@ -525,42 +460,6 @@ export default {
            
             
         },
-
-        //pre input role 
-        preinput(params){
-            let whatisrole = params;
-            if (whatisrole) {
-
-                switch (whatisrole) {
-                    case 1:
-                            this.Main_role.pm = 1;
-                            this.Main_role.sl = 0;
-                         
-                            return 'Project Manager';
-                        break;
-                    case 2:
-                            this.Main_role.pm = 0;
-                            this.Main_role.sl = 1;
-                      
-                            return 'Steps Leader';
-                        break;
-                    case 3:
-                            this.Main_role.pm = 1;
-                            this.Main_role.sl = 1;
-                         
-                            return 'Double';
-                        break;
-                    default:
-                            this.Main_role.pm = 0;
-                            this.Main_role.sl = 0;
-                            return 'Default';
-                        break;
-                }
-            } else {
-                return 'not chosen';
-            }
-            
-        }
 
     },//end methods
 }

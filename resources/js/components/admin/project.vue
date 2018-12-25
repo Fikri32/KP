@@ -8,7 +8,7 @@
             <div class="page-header">
                 
                 <h4 class="page-title">
-                    Project {{id}}
+                    Project
                 </h4>
                 <div class="page-header-actions">
                     <form @click.prevent="" class="form-inline">
@@ -386,7 +386,6 @@ export default {
                 method:'get',
                 headers:{
                     'Accept' :'application/json',
-                    'X-Requested-With' : 'XMLHttpRequest',
                     'Authorization' : 'Bearer ' + this.api_key
                 },
             })
@@ -405,7 +404,6 @@ export default {
                 method:'get',
                 headers:{
                     'Accept' :'application/json',
-                    'X-Requested-With' : 'XMLHttpRequest',
                     'Authorization' : 'Bearer ' + this.api_key
                 }
             })

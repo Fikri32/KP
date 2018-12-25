@@ -14,7 +14,6 @@
                                 </span>
                                 <h4 class="card-title project-title">
                                     Nama Proyek : {{singleProject.project_name}}<br>
-                                    
                                     <hr>
                                 </h4>
                             </a>
@@ -41,101 +40,52 @@
                                     <!-- v-for="item in filtering" :key="item.id" -->
                                     <div class="tab-content">
                                         <div  class="tab-pane active" id="perstep" role="tabpanel">
-                                            <div  class="card card-inverse">
-                                            <div class="card-block">
-                                               <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                    <th>Leader</th>
-                                                    <th>Team</th>
-                                                    <th>End Date</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="tasks  in filtering " :key="tasks.task_id">
-                                                    <td>
-                                                        <div class="media m-t-0">
-                                                            <div v-if="tasks.task_steps.leader">
-                                                                <div class="media-left text-middle">
-
-                                                                    <div v-if="tasks.task_handler.user_pic">
-                                                                        <a href="javascript:void(0)" class="avatar">
-                                                                            <img :src="'http://localhost:8000/' + tasks.task_steps.leader.user_pic">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div v-else>
-                                                                        <a href="javascript:void(0)" class="avatar">
-                                                                            <img :src="'http://localhost:8000/' + 'defaultpic.jpg'">
-                                                                        </a>
-                                                                    </div>
-                                                                                                
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <h4 class="media-heading font-size-14">{{tasks.task_steps.leader.user_name}}</h4>
-                                                                    <span>{{tasks.task_steps.name}}</span>
-                                                                </div>
-                                                            </div>
-                                                            <div v-else>
-                                                                <div class="media-body">
-                                                                    <h4 class="media-heading font-size-14">Belum Di Tentukan</h4>
-                                                                    <span>{{tasks.task_steps.name}}</span>
-                                                                </div>
-                                                            </div>
-                                                           
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        
-                                                        <div class="media m-t-0">
-                                                            <div class="media-left text-middle">
-                                                                <div v-if="tasks.task_handler.user_pic">
-                                                                    <a href="javascript:void(0)" class="avatar">
-                                                                        <img :src="'http://localhost:8000/' + tasks.task_handler.user_pic">
-                                                                    </a>
-                                                                </div>
-                                                                <div v-else>
-                                                                    <a href="javascript:void(0)" class="avatar">
-                                                                        <img :src="'http://localhost:8000/' + 'defaultpic.jpg'">
-                                                                    </a>
-                                                                </div>
-                                                                                            
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading font-size-14">{{tasks.task_handler.user_name}}</h4>
-                                                                <span>{{tasks.task_name}}</span>
-                                                            </div>
-                                                        </div>
-                                                       
-                                                    </td>
-                                                    <td>{{tasks.task_deadline}}</td>
-                                                    </tr>
-                                                </tbody>
-                                                </table>
-                                            </div>
-                                            </div>
                                             <div class="card card-bordered card-outline-primary">
                                                 <div class="card-block">
                                                     <h4 class="card-title">
-                                                        Task List
-                                                        <button type="button" class="btn btn-pure btn-default icon md-plus btn-plus" data-target="#taskstruct" data-toggle="modal"></button>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                Task List
+                                                                <button type="button" class="btn btn-pure btn-default icon md-plus btn-plus" data-target="#taskstruct" data-toggle="modal"></button>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                 
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div v-if="filterBy == ''">
+                                                                    
+                                                                </div>
+                                                                <div v-else>
+                                                                    Leader Steps: {{filtering[0].task_steps.leader.user_name}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </h4>
+
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                            <th>    
-                                                                Task 
-                                                            </th>
-                                                            <th>
-                                                                Handler 
-                                                            </th>
-                                                            <th>
-                                                                Status 
-                                                            </th>
-                                                            <th>Deadline</th>
-                                                            <th>Tgl Selesai</th>
-                                                           
-                                                            <th class="text-nowrap">Action</th>
+                                                                <th>    
+                                                                    Task 
+                                                                </th>
+
+                                                                <th>
+                                                                    Handler 
+                                                                </th>
+
+                                                                <th>
+                                                                    Status 
+                                                                </th>
+
+                                                                <th>
+                                                                    Deadline
+                                                                </th>
+
+                                                                <th>
+                                                                    Tgl Selesai
+                                                                </th>
+                                                            
+                                                                <th class="text-nowrap">Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -616,7 +566,7 @@ export default {
             }
 
             return result;
-        }
+        },
     },
 
     props:['token','id','uname'],
@@ -626,8 +576,6 @@ export default {
         this.fetchSinge();
         this.taskdata();
         this.fetchUser();
-        this.fetchStep();
-        
     },
 
     methods:{
@@ -686,8 +634,6 @@ export default {
             .catch(error => console.log(error));
         },
 
-        
-        
         taskdata(){
             fetch(`/api/taskdata/${this.set_id}`,{
                 method:'get',
@@ -803,12 +749,13 @@ export default {
             this.task_post.finish = params.task_finish;
         },
 
-          selectdoc(params){
+        selectdoc(params){
             this.task_post.step = params.task_steps.id;
             this.task_post.handler = params.task_handler.user_id;
             // this.document_post.task = params.task_id;
             // this.document_post.nama_document = params.task_document.document_name;
-          },
+        },
+
         statusTaskreq(params){
             fetch(`/api/task/status/${params}`,{
                 method:'put',

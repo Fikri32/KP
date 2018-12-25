@@ -141,11 +141,7 @@
                   <span class="site-menu-title">STAFF</span></a>
               </li>
 
-              <li class="dropdown site-menu-item has-sub">
-                <a data-toggle="dropdown" href="#" data-dropdown-toggle="false">
-                  <i class="site-menu-icon md-money" aria-hidden="true"></i>
-                  <span class="site-menu-title">Invoices</span></a>
-              </li>
+            
 
                <li class="dropdown site-menu-item has-sub">
                 <a data-toggle="dropdown" href="{{route('client')}}" data-dropdown-toggle="false">

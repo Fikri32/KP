@@ -43,9 +43,10 @@ class ProjectController extends Controller
             ]);
             
             $blankSpaces = 	666;
-            
+            $defaultPM = 401;
+
             $proj = $proj -> create([
-                'user_id'               => $request->uid,
+                'user_id'               => $defaultPM,
                 'company_id'            => Auth::user()->company,
                 'nama_project'          => $request->nama_project,
                 'deskripsi_project'     => $request->deskripsi_project,

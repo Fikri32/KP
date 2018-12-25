@@ -53,8 +53,8 @@ class DocumentsController extends Controller
             $exploded = explode(',',$request->url);
             $decoded = base64_decode($exploded[1]);
 
-            if (str_contains($exploded[0],'docx')) {
-                $extension = 'xlx`x';
+            if (str_contains($exploded[0],'xlxx')) {
+                $extension = 'docx';
             } else {
                 $extension = 'pdf';
             }

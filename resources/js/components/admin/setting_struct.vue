@@ -11,7 +11,9 @@
             <!-- Task Content -->
             <div class="page-content">
                 <div class="panel">
-
+                    <div class="form-group form-material">
+                        <button class="btn btn-primary waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addSteps"><i class="icon md-plus" aria-hidden="true"></i>Steps</button>
+                    </div>
                     <!-- Contacts -->
                     <table class="table is-indent">
                         <thead>

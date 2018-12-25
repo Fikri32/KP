@@ -188,7 +188,19 @@
                                     </div>
 
                                 </div>
+
+                               
+
                             </div>
+                             
+                                    <div class="modal-footer">
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-md-offset-3">
+                                           
+                                            <button type="submit" class="btn btn-success">Kirim</button>
+                                            </div>
+                                        </div>
+                                    </div>
                         </form>
                 </div>
             </div>
@@ -217,6 +229,7 @@ export default {
                 nama_document:'',
                 url:'',
                 deskripsi:'',
+             
                 task: this.id,
             },
         }

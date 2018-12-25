@@ -23,7 +23,7 @@ class project extends JsonResource
             'project_client'    => Res_client::make($this->Client),
             'project_deadline'  => $this->deadline,
             'project_Date'      => $this->tanggal_mulai,
-            'project_added'     => $this->created_at->diffForHumans(),
+            'project_added'     => $this->created_at,
             'userpm'            => User::make($this->User),
             'setting'           => Res_setting::make($this->Settings),
             'pembayaran'        => Res_Payments::collection($this->Payments),

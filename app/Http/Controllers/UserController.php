@@ -23,7 +23,7 @@ class UserController extends Controller
         $user = $user->where([
                 ['company',Auth::user()->company],
                 ['role','employe']
-            ])->paginate(10);
+            ])->get();
         return UserResource::collection($user);
     }
 

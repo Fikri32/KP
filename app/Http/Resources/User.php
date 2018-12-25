@@ -21,7 +21,7 @@ class User extends JsonResource
             'user_role' => $this->role,
             'user_nip' => $this->nip,
             'user_pic' => $this->image,
-            'user_registered' => $this->created_at->diffForHumans(),
+            'user_registered' => $this->created_at,
             'jobs' => $this->Divisi,
             'profile' => Res_profile::make($this->Profile),
             'pm' => $this->PM,
