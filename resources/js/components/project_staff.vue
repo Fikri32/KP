@@ -2,7 +2,7 @@
     <div>  
         <div class="page">
             <div class="page-header page-header-bordered page-header-tabs">
-                <h1 class="page-title">Project Debug Staff :: {{filterBystaf}}</h1>
+                <h1 class="page-title">Project</h1>
                 <div class="page-header-actions">
                     <div class="input-search">
                         <input v-model="filter" type="text" class="form-control round" placeholder="cari Project...">

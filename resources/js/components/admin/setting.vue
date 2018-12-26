@@ -40,11 +40,11 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
-                                    <h4 class="modal-title">Tambah Settings {{Setting_post.name_setting}}</h4>
+                                    <h4 class="modal-title">Tambah Settings</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="example">
-                                        <form @submit.prevent="StoreSettings()" class="form-horizontal">
+                                        <form class="form-horizontal" id="frmsetting">
                                             <div class="form-group row form-material row">
                                             <label class="col-xs-12 col-md-3 form-control-label">Nama Setting: </label>
                                                 <div class="col-md-9 col-xs-12">
@@ -55,7 +55,7 @@
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                                <button type="Submit" class="btn btn-primary">Save</button>
+                                                <button type="Submit" @click="StoreSettings()" data-dismiss = "modal" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
                                     </div>
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="example">
-                                        <form @submit.prevent="UpdateSetting(Setting_post.temp)" class="form-horizontal">
+                                        <form class="form-horizontal">
                                             <div class="form-group row form-material row">
                                             <label class="col-xs-12 col-md-3 form-control-label">Nama Setting: </label>
                                                 <div class="col-md-9 col-xs-12">
@@ -91,7 +91,7 @@
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                                <button type="Submit" class="btn btn-primary">Save</button>
+                                                <button type="Submit" @click="UpdateSetting(Setting_post.temp)" data-dismiss="modal" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
                                     </div>

@@ -39,7 +39,7 @@
                                     <!--edit button kuy -->
                                     <button @click="editStep(steps)" data-toggle="modal" data-target="#editSteps" class="btn btn-floating btn-success btn-sm waves-effect"><i class="icon md-edit" aria-hidden="true"></i></button>
                                     <!--delete button kuy -->
-                                    <button @click="DeleteSteps(steps.steps_id)" class="btn btn-floating btn-warning btn-sm waves-effect"><i class="icon md-delete" aria-hidden="true"></i></button>
+                                    <button @click="DeleteSteps(steps.id)" class="btn btn-floating btn-warning btn-sm waves-effect"><i class="icon md-delete" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -55,14 +55,14 @@
                                     <h4 class="modal-title">Tambah Steps</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form @submit.prevent="storeSteps()">
+                                    <form >
                                         <div class="form-group">
-                                            {{step_post.nama_div}} {{step_post.id_setting}}
+                                            
                                             <input type="text" v-model="step_post.nama_div" class="form-control" name="lablename" placeholder="Nama Steps"/>
                                         </div>
 
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" @click="storeSteps()" data-dismiss="modal" type="submit">Save</button>
                                             <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                                         </div>
                                     </form>
@@ -83,14 +83,14 @@
                                     <h4 class="modal-title">Edit Steps</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form @submit.prevent="updateStep(step_post.temp)">
-                                        Debug : id {{step_post.temp}}
+                                    <form>
+                                       
                                         <div class="form-group">
                                             <input type="text" v-model="step_post.nama_div" class="form-control" name="lablename" placeholder="Nama Steps"/>
                                         </div>
 
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" @click="updateStep(step_post.temp)" data-dismiss="modal" type="submit">Save</button>
                                             <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                                         </div>
                                     </form>
@@ -206,54 +206,47 @@ export default {
             
         },
 
-        DeleteSteps(step_id){
-            
+        DeleteSteps(params){
             this.$swal({
                 title: 'Anda Yakin?',
-                text: "data akan terhapus secara permanent!",
+                text: "Task akan terhapus permanent!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Ya',
-                cancelButtonText:'Tidak, Simpan Data ini',
-              
-            }).then((result) => {
-                if (result.value) {
-                  
-                    fetch(`/api/steps/delete/${step_id}`,{
-                    method:'delete',
-                    headers:{
-                        'Content-Type':'application/json',
-                        'Authorization' : 'Bearer ' + this.api_key
-                    } 
-                    })
-                    .then(res => res.data)
-                    .then(data => {
-
-                        this.$swal(
-                            'Terhapus!',
-                            'Steps Berhasil Di Hapus.',
-                            'success'
-                        )
-
-                        this.fetchSteps();
-                    })
-                    .catch(err=>console.log(err));
-
+                cancelButtonText: 'Tidak',
+                }).then((result) => {
+                    if (result.value) {
+                        fetch(`/api/steps/delete/${params}`,{
+                            method:'delete',
+                            headers:{
+                                'Content-Type':'application/json',
+                                'Authorization':'Bearer ' + this.api_key
+                            },
+                        })
+                        .then(res => res.data)
+                        .then(data => {
+                            this.$swal(
+                                'Terhapus!',
+                                'Data step Telah terhapus.',
+                                'success'
+                            );
+                            this.fetchSteps();
+                        })
+                        .catch(err=>console.log(err))
                 }
             })
-
         },
 
 
         editStep(steps){
-            this.step_post.nama_div = steps.steps_name;
-            this.step_post.temp = steps.steps_id;
+            this.step_post.nama_div = steps.name;
+            this.step_post.temp = steps.id;
         },
         
-        updateStep(steps_id){
-            fetch(`/api/steps/update/${steps_id}`,{
+        updateStep(params){
+            fetch(`/api/steps/update/${params}`,{
                 method  : 'put',
                 body    : JSON.stringify(this.step_post),
                 headers : {

@@ -130,10 +130,8 @@
                                         </button>
                                         <h4 class="modal-title"> Tambah Task Baru </h4>
                                     </div>
-                                    <form @submit.prevent="create()">
+                                    <form >
                                         <div class="modal-body">
-                                            Steps : {{task_post.step}}, Project : {{task_post.project}},
-                                            Task : {{task_post.task}},Handler : {{task_post.handler}},Deadline : {{task_post.deadline}}
                                             <div class="form-group form-material floating" data-plugin="formMaterial">
                                                 <input v-model="task_post.task" type="text" class="form-control" name="inputDivisi">
                                                 <label class="floating-label">Nama Task</label>
@@ -141,7 +139,7 @@
 
                                             <div class="form-group form-material floating" data-plugin="formMaterial">
                                                 <select v-model="task_post.handler" class="form-control">
-                                                    <option v-for="(item, index) in user" :key="index" :value="item.user_id">{{item.user_name}}-{{item.user_id}}</option>
+                                                    <option v-for="(item, index) in user" :key="index" :value="item.user_id">{{item.user_name}}</option>
                                                 </select>
                                                 <label class="floating-label">Handler Task</label>
                                             </div>
@@ -153,7 +151,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" @click="create()" data-dismiss = "modal" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </form>
                                     </div>
@@ -211,7 +209,7 @@
                                         </button>
                                         <h4 class="modal-title"> Edit Task Baru </h4>
                                     </div>
-                                    <form @submit.prevent="update(task_post.task_id)">
+                                    <form >
                                         <div class="modal-body">
                                             <div class="form-group form-material floating" data-plugin="formMaterial">
                                                 <input v-model="task_post.task" type="text" class="form-control" name="inputDivisi">
@@ -220,7 +218,7 @@
 
                                             <div class="form-group form-material floating" data-plugin="formMaterial">
                                                 <select v-model="task_post.handler" class="form-control">
-                                                    <option v-for="(item, index) in user" :key="index" :value="item.user_id">{{item.user_name}}-{{item.user_id}}</option>
+                                                    <option v-for="(item, index) in user" :key="index" :value="item.user_id">{{item.user_name}}</option>
                                                 </select>
                                                 <label class="floating-label">Handler Task</label>
                                             </div>
@@ -232,7 +230,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" @click="update(task_post.task_id)" data-dismiss = "modal" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </form>
                                     </div>

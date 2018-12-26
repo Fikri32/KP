@@ -154,7 +154,7 @@
                                 <h4 class="modal-title">Setup Task</h4>
                             </div>
                             
-                                <form @submit.prevent="createTask()">
+                                <form >
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="item form-group">
@@ -189,7 +189,7 @@
                                     </div>
                                     
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" @click="createTask()" data-dismiss="modal" type="submit">Save</button>
                                         <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                                     </div>
                                 </form>
@@ -208,7 +208,7 @@
                                 <h4 class="modal-title">Edit Task</h4>
                             </div>
                             
-                                <form @submit.prevent="updateTask(task_post.task_id)">
+                                <form >
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="item form-group">
@@ -243,7 +243,7 @@
                                     </div>
                                     
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" @click="updateTask(task_post.task_id)" data-dismiss="modal" type="submit">Save</button>
                                         <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                                     </div>
                                 </form>
@@ -262,7 +262,7 @@
                                 <h4 class="modal-title">Status Task {{task_post.task}}</h4>
                             </div>
                             
-                                <form @submit.prevent="statusTaskreq(task_post.task_id)">
+                                <form>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             
@@ -286,7 +286,7 @@
                                     </div>
                                     
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" @click="statusTaskreq(task_post.task_id)" data-dismiss="modal" type="submit">Save</button>
                                         <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                                     </div>
                                 </form>

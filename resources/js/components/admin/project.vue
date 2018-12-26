@@ -37,7 +37,7 @@
                                     <h4 class="modal-title" id="karyawan">Create Project</h4>
                                 </div>
                                 
-                                <form @submit.prevent="storeProject" class="form-horizontal form-label-left" novalidate>
+                                <form  class="form-horizontal form-label-left" novalidate>
                                     
                                     <div class="modal-body">
                                         <div class="item form-group">
@@ -78,7 +78,7 @@
                                         </div>
 
                                         <div class="item form-group">
-                                            <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Project Manager debug UID : {{project_post.uid}}</h6>
+                                            <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Project Manager {{project_post.uid}}</h6>
 
                                             <div class="col-md-10 col-sm-6 col-xs-12">
                                                 <select v-model="project_post.uid" class="form-control">
@@ -95,8 +95,8 @@
                                         <div class="form-group">
                                             <div class="col-md-6 col-md-offset-3">
                                             <hr>
-                                            <button type="reset" class="btn btn-primary">Reset</button>
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="reset"  class="btn btn-primary">Reset</button>
+                                            <button type="submit" @click="storeProject()" data-dismiss = "modal" class="btn btn-success">Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                     <h4 class="modal-title" id="karyawan">Edit Project</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form @submit.prevent="update(project_post.project_id)" class="form-horizontal form-label-left" novalidate>
+                                    <form  class="form-horizontal form-label-left" novalidate>
                                         <div class="item form-group">
                                             <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_lengkap">Nama Project</h6>
                                             <div class="col-md-10 col-sm-6 col-xs-12">
@@ -155,7 +155,7 @@
                                             </div>
 
                                             <div class="item form-group">
-                                                <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Project Manager debug UID : {{project_post.uid}}</h6>
+                                                <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="Posisi">Project Manager {{project_post.uid}}</h6>
 
                                                 <div class="col-md-10 col-sm-6 col-xs-12">
                                                     <select v-model="project_post.uid" class="form-control">
@@ -169,7 +169,7 @@
                                                 <div class="form-group">
                                                     <div class="col-md-6 col-md-offset-3">
                                                         <button type="reset" class="btn btn-primary">Reset</button>
-                                                        <button type="submit" class="btn btn-success">Save</button>
+                                                        <button type="submit" @click="update(project_post.project_id)"  class="btn btn-success" data-dismiss="modal"> Save</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,12 +192,12 @@
                             <h4 class="modal-title">{{select_setting.selected}} #{{select_setting.id_project}}</h4>
                             </div>
                            
-                            <form @submit.prevent="set_setting(select_setting.id_project)">
+                            <form >
                             <div class="modal-body">
                             
                                 <div class="item form-group">
                                     <div class="col-md-5 col-sm-3 col-xs-6">
-                                        Pilih Setting debug:{{select_setting.id_setting}}
+                                        Pilih Setting 
                                         <select v-model="select_setting.id_setting" class="form-control">
                                             <option v-for="item in setting" :key="item.id" :value="item.id"> {{item.name}} </option>
                                         </select>
@@ -208,7 +208,7 @@
                             
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default btn-pure" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="submit" @click="set_setting(select_setting.id_project)" data-dismiss="modal"  class="btn btn-primary">Save changes</button>
                             </div>
                             </form>
                                 

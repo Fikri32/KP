@@ -89,7 +89,7 @@
                             <h4 class="modal-title">Pembayaran</h4>
                         </div>
                         
-                        <form @submit.prevent="storePayments()">
+                        <form >
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="item form-group">
@@ -116,7 +116,7 @@
                             </div>
                             
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary" @click="storePayments()" data-dismiss="modal" type="submit">Save</button>
                                 <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                             </div>
                         </form>
@@ -136,7 +136,7 @@
                             <h4 class="modal-title">Pembayaran</h4>
                         </div>
                         
-                        <form @submit.prevent="updatePayments(payment_post.pay_id)">
+                        <form>
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="item form-group">
@@ -163,7 +163,7 @@
                             </div>
                             
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary" @click="updatePayments(payment_post.pay_id)" data-dismiss="modal" type="submit">Save</button>
                                 <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                             </div>
                         </form>

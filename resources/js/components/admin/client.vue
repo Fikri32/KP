@@ -91,7 +91,7 @@
                             <h4 class="modal-title">Tambah Client</h4>
                         </div>
                         
-                        <form @submit.prevent="StoreClient()">
+                        <form >
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="item form-group">
@@ -130,7 +130,7 @@
                             </div>
                             
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary" @click="StoreClient()" data-dismiss="modal" type="submit">Save</button>
                                 <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                             </div>
                         </form>
@@ -146,12 +146,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-                            <h4 class="modal-title">Tambah Client</h4>
+                            <h4 class="modal-title">Edit Client</h4>
                         </div>
                         
-                        <form @submit.prevent="UpdateClient(client_post.client_id)">
+                        <form>
                             <div class="modal-body">
-                                {{client_post}}
+                               
                                 <div class="form-group">
                                     <div class="item form-group">
                                         <h6> Nama </h6>
@@ -189,7 +189,7 @@
                             </div>
                             
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-primary" @click="UpdateClient(client_post.client_id)" data-dismiss="modal" type="submit">Save</button>
                                 <a class="btn btn-sm btn-white btn-pure" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                             </div>
                         </form>

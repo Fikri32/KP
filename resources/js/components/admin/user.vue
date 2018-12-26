@@ -27,7 +27,7 @@
                                 <h4 class="modal-title" id="karyawan">Karyawan</h4>
                             </div>
                             <div class="modal-body">
-                                <form @submit.prevent="storeuser" class="form-horizontal form-label-left" novalidate>
+                                <form  class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
                                         <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_lengkap">Nama</h6>
                                         <div class="col-md-10 col-sm-6 col-xs-12">
@@ -76,7 +76,7 @@
                                         <div class="form-group">
                                             <div class="col-md-6 col-md-offset-3">
                                             <button type="reset" class="btn btn-primary">Reset</button>
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="submit" @click="storeuser()" data-dismiss="modal"  class="btn btn-success">Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                 <h4 class="modal-title" id="karyawan">Edit Staff #{{user_post.user_id}}</h4>
                             </div>
                             <div class="modal-body">
-                                <form @submit.prevent="updateuser(user_post.user_id)" class="form-horizontal form-label-left" novalidate>
+                                <form  class="form-horizontal form-label-left" novalidate>
                                     <div class="item form-group">
                                         <h6 class="control-label col-md-3 col-sm-3 col-xs-12" for="nama_lengkap">Nama</h6>
                                         <div class="col-md-10 col-sm-6 col-xs-12">
@@ -138,7 +138,7 @@
                                             <div class="col-md-6 col-md-offset-3">
 
                                             <button type="reset" class="btn btn-primary">Reset</button>
-                                            <button type="submit" class="btn btn-success">Save</button>
+                                            <button type="submit" @click="updateuser(user_post.user_id)" data-dismiss="modal" class="btn btn-success">Save</button>
                                             </div>
                                         </div>
                                     </div>
